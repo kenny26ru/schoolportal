@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.models;
+package com.kataacademy.schoolportal.common.models.persons;
 
 import lombok.Data;
 
