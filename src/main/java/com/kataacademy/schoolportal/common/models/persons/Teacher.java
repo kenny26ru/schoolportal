@@ -15,5 +15,5 @@ import javax.persistence.*;
 public class Teacher extends Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
 }
