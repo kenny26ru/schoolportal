@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @Getter
 @Setter
 
@@ -16,4 +15,8 @@ public class Teacher extends Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public Teacher() {
+        super();
+    }
 }
