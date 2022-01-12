@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.models;
+package com.kataacademy.schoolportal.models.persons;
 
 import lombok.Getter;
 import lombok.Setter;
