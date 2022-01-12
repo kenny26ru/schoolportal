@@ -15,8 +15,8 @@ public class Form {
     private byte number;
     private String classRoomName;
     private String fullClassRoomName;
-    List<Pupil> pupilList = new ArrayList<>();
-    Teacher classroomTeacher;
+    private List<Pupil> pupilList = new ArrayList<>();
+    private Teacher classroomTeacher;
     private String classRoomProfile;
 
 }
