@@ -2,22 +2,17 @@ package com.kataacademy.schoolportal.common.services.schooattribute.impl;
 
 import com.kataacademy.schoolportal.common.models.schoolatribute.School;
 import com.kataacademy.schoolportal.common.repository.schooattribute.SchoolRepository;
-
 import com.kataacademy.schoolportal.common.services.schooattribute.SchoolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-@Transactional
 public class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository repository;
 
-
-    @Autowired
     public SchoolServiceImpl(SchoolRepository repository) {
         this.repository = repository;
     }
@@ -29,14 +24,14 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School save(School school) {
-
         repository.save(school);
         return school;
     }
 
     @Override
     public School getSchoolById(int id) {
-        return repository.findById(id).orElse(new School());
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Id not found " + id));
     }
 
     @Override
