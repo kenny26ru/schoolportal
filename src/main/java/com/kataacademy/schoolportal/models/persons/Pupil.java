@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class Pupil extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public Pupil() {
-        super();
+    public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
+        super(firstName, secondName, lastName, sex, birthday);
     }
 }
