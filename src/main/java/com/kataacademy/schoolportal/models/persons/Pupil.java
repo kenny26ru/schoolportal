@@ -16,4 +16,8 @@ public class Pupil extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public Pupil() {
+        super();
+    }
 }
