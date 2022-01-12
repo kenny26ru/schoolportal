@@ -4,7 +4,6 @@ package com.kataacademy.schoolportal.common.models.persons;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -19,11 +18,11 @@ public class Director extends Person {
     private Long id;
 
     public Director(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setSecondName(secondName);
-        setSex(sex);
-        setBirthday(birthday);
+        super.firstName = firstName;
+        super.secondName = secondName;
+        super.lastName = lastName;
+        super.sex = sex;
+        super.birthday = birthday;
     }
 
 }
