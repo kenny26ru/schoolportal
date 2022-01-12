@@ -18,11 +18,7 @@ public class Director extends Person {
     private Long id;
 
     public Director(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
-        super.firstName = firstName;
-        super.secondName = secondName;
-        super.lastName = lastName;
-        super.sex = sex;
-        super.birthday = birthday;
+        super(firstName, secondName, lastName, sex, birthday);
     }
 
 }

@@ -2,18 +2,21 @@ package com.kataacademy.schoolportal.common.models.persons;
 
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Person {
 
-    protected String firstName;
-    protected String secondName;
-    protected String lastName;
-    protected String sex;
-    protected LocalDate birthday;
+    private String firstName;
+    private String secondName;
+    private String lastName;
+    private String sex;
+    private LocalDate birthday;
 }
