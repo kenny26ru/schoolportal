@@ -10,12 +10,9 @@ import java.util.List;
 
 @Service
 public class PupilServiceImpl implements PupilService {
-    private final PupilRepository pupilRepository;
 
     @Autowired
-    public PupilServiceImpl(PupilRepository pupilRepository) {
-        this.pupilRepository = pupilRepository;
-    }
+    private PupilRepository pupilRepository;
 
     @Override
     public List<Pupil> getAllPupils() {
@@ -23,8 +20,8 @@ public class PupilServiceImpl implements PupilService {
     }
 
     @Override
-    public Pupil getPupilById(int id) {
-        return pupilRepository.getById(id);
+    public Pupil getPupilById(long id) {
+        return pupilRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -33,7 +30,12 @@ public class PupilServiceImpl implements PupilService {
     }
 
     @Override
-    public void deletePupil(int id) {
+    public void editPupil(Pupil pupil) {
+        pupilRepository.save(pupil);
+    }
+
+    @Override
+    public void deletePupil(long id) {
         pupilRepository.deleteById(id);
     }
 }

@@ -7,9 +7,11 @@ import java.util.List;
 public interface PupilService {
     public List<Pupil> getAllPupils();
 
-    public Pupil getPupilById(int id);
+    public Pupil getPupilById(long id);
 
     public void savePupil(Pupil pupil);
 
-    public void deletePupil(int id);
+    public void editPupil(Pupil pupil);
+
+    public void deletePupil(long id);
 }
