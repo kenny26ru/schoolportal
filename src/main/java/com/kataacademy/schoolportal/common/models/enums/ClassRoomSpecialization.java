@@ -1,6 +1,6 @@
 package com.kataacademy.schoolportal.common.models.enums;
 
-public enum ClassSpecialization {
+public enum ClassRoomSpecialization {
 
     PHYSICAL,
     CHEMICAL,

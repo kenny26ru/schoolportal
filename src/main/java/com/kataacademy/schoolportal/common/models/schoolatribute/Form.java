@@ -1,7 +1,7 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
 
-import com.kataacademy.schoolportal.common.models.enums.ClassSpecialization;
+import com.kataacademy.schoolportal.common.models.enums.ClassRoomSpecialization;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import com.kataacademy.schoolportal.models.persons.Pupil;
 import lombok.Getter;
@@ -19,6 +19,6 @@ public class Form {
     private String fullClassRoomName;
     private List<Pupil> pupilList = new ArrayList<>();
     private Teacher classroomTeacher;
-    private ClassSpecialization classSpecialization;
+    private ClassRoomSpecialization classRoomSpecialization;
 
 }
