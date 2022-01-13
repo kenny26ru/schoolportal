@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SchoolServiceImpl implements SchoolService {
@@ -23,19 +24,31 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
+    public School getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Id not found " + id));
+    }
+
+    @Override
     public School save(School school) {
         repository.save(school);
         return school;
     }
 
     @Override
-    public School getSchoolById(int id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Id not found " + id));
+    public School edit(School school) {
+        Long id = school.getId();
+
+        if (id != null && repository.findById(id).isPresent()) {
+            repository.save(school);
+        } else {
+            throw new EntityNotFoundException("school id is empty or not found in the repository, id=" + id);
+        }
+        return school;
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 }
