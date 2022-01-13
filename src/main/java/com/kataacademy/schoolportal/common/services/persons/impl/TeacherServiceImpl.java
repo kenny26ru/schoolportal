@@ -1,7 +1,7 @@
 package com.kataacademy.schoolportal.common.services.persons.impl;
 
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
-import com.kataacademy.schoolportal.common.repository.TeacherRepository;
+import com.kataacademy.schoolportal.common.repository.persons.TeacherRepository;
 import com.kataacademy.schoolportal.common.services.persons.TeacherService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

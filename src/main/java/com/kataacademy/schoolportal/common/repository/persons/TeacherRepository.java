@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.repository;
+package com.kataacademy.schoolportal.common.repository.persons;
 
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
