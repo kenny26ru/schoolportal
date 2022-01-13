@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.models.persons;
+package com.kataacademy.schoolportal.common.models.persons;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
