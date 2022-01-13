@@ -19,6 +19,6 @@ public class Form {
     private String fullClassRoomName;
     private List<Pupil> pupilList = new ArrayList<>();
     private Teacher classroomTeacher;
-    private ClassRoomSpecialization classRoomSpecialization;
+    private String classRoomProfile;
 
 }
