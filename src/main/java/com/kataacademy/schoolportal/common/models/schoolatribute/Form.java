@@ -13,10 +13,10 @@ import java.util.List;
 public class Form {
 
     private byte number;
-    private String classRoomName;
-    private String fullClassRoomName;
-    private List<Pupil> pupilList = new ArrayList<>();
-    private Teacher classroomTeacher;
-    private String classRoomProfile;
+    private String name;
+    private String formName;
+    private List<Pupil> pupilList;
+    private Teacher formTeacher;
+    private String profile;
 
 }
