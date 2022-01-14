@@ -37,6 +37,20 @@ public enum SchoolSubjects {
     ASTRONOMY,
     BASIC_MILITARY_TRAINING,
     WORLD_ART_CULTURE,
-    RHETORIC
+    RHETORIC,
+    VALUE("value");
 
+    private String value;
+
+    SchoolSubjects(String value) {
+        this.value = value;
+    }
+
+    SchoolSubjects() {
+
+    }
+
+    public String getValue() {
+        return value;
+    }
 }
