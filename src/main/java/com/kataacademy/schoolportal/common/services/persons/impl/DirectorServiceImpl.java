@@ -1,14 +1,11 @@
-package com.kataacademy.schoolportal.common.services.persons.Impl;
+package com.kataacademy.schoolportal.common.services.persons.impl;
 
 import com.kataacademy.schoolportal.common.models.persons.Director;
 import com.kataacademy.schoolportal.common.repository.persons.DirectorRepository;
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
-import static java.time.LocalTime.now;
-
+import java.util.List;
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
@@ -19,12 +16,14 @@ public class DirectorServiceImpl implements DirectorService {
         this.directorRepository = directorRepository;
     }
 
+    @Override
+    public List<Director> getAllDirectors() {
+        return directorRepository.findAll();
+    }
 
     @Override
     public Director getDirectorById(Long id) {
-//        return directorRepository.findById(id).orElseThrow();
-        Director director = new Director(id,"Name", "SecondName", "LastName", "M", now());
-        return director;
+        return directorRepository.findById(id).orElseThrow();
     }
 
     @Override
