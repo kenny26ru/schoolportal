@@ -23,7 +23,7 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public Director getDirectorById(Long id) {
-        return directorRepository.findById(id).orElseThrow();
+        return directorRepository.findById(id).orElse(null);
     }
 
     @Override
