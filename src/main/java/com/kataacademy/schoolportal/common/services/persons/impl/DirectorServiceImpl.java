@@ -5,6 +5,10 @@ import com.kataacademy.schoolportal.common.repository.persons.DirectorRepository
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
+import static java.time.LocalTime.now;
+
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
@@ -18,7 +22,9 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public Director getDirectorById(Long id) {
-        return directorRepository.findById(id).orElseThrow();
+//        return directorRepository.findById(id).orElseThrow();
+        Director director = new Director(id,"Name", "SecondName", "LastName", "M", now());
+        return director;
     }
 
     @Override
