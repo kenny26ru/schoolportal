@@ -60,7 +60,7 @@ public class PupilController {
             throw new PersonNotFoundException(id);
         }
         pupilService.deletePupil(id);
-        return new ResponseEntity<>("OK. Директор с id=" + id + " удален", HttpStatus.OK);
+        return new ResponseEntity<>("OK. Ученик с id=" + id + " удален", HttpStatus.OK);
 
     }
 
