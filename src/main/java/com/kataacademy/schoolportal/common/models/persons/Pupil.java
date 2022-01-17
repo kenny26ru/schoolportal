@@ -21,14 +21,18 @@ public class Pupil extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nameForm")
-    String nameForm;
+//    @Column(name = "nameForm")
+//    String nameForm;
+
+    @EmbeddedId
+    @Column(name = "form_name")
+    private Form formName;
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);
     }
 
-    public void setNameForm(Form form) {
-        this.nameForm = form.getNumber() + form.getName();
-    }
+//    public void setNameForm(Form form) {
+//        this.nameForm = form.getNumber() + form.getName();
+//    }
 }
