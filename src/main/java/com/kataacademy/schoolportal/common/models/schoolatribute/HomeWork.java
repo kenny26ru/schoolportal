@@ -9,11 +9,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Getter @Setter
+@Entity
+@Table(name = "homework")
 public class HomeWork {
 
     @Id
