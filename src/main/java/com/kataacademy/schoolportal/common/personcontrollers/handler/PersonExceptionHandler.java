@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.personcontrollers;
+package com.kataacademy.schoolportal.common.personcontrollers.handler;
 
 import com.kataacademy.schoolportal.common.personcontrollers.exception.PersonForbiddenException;
 import com.kataacademy.schoolportal.common.personcontrollers.exception.BodyMessage;
