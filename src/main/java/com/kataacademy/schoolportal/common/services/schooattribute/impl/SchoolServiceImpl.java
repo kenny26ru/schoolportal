@@ -23,7 +23,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School getById(Integer id) {
+    public School getById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Id not found " + id));
     }
@@ -36,7 +36,7 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School edit(School school) {
-        Integer id = school.getId();
+        Long id = school.getId();
 
         if (id != null && repository.findById(id).isPresent()) {
             repository.save(school);
@@ -47,7 +47,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 }

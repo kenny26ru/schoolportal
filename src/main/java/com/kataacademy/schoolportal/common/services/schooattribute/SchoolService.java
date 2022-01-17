@@ -10,9 +10,9 @@ public interface SchoolService {
 
     public School save(School user);
 
-    public School getById(Integer id);
+    public School getById(Long id);
 
     public School edit(School school);
 
-    public void delete(Integer id);
+    public void delete(Long id);
 }

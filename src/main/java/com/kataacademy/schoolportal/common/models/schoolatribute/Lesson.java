@@ -17,8 +17,8 @@ public class Lesson {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "subject_name")
+    private String subjectName;
 
     @Column(name = "date_lesson")
     private LocalDate dateLesson;
@@ -35,8 +35,8 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(String name, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
-        this.name = name;
+    public Lesson(String subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
+        this.subjectName = subjectName;
         this.dateLesson = dateLesson;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
@@ -47,7 +47,7 @@ public class Lesson {
     public String toString() {
         return "Lesson{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", subjectName='" + subjectName + '\'' +
                 ", dateLesson=" + dateLesson +
                 ", timeStart=" + timeStart +
                 ", timeEnd=" + timeEnd +
