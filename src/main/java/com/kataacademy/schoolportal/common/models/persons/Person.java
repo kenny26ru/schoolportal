@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -24,9 +25,8 @@ public abstract class Person {
     private String secondName;
     @SizeNotBlank(min = 4, message = "Поле lastName минимум 4 символа")
     private String lastName;
-    //TODO как сделать влидацию на конкретные значения? Может есть VALUE
-    @Size(min = 1, max = 1, message = "Поле sex 1 символ: f или m")
+    @Pattern(regexp="[мМжЖ]", message = "Поле sex 1 символ: М или Ж")
     private String sex;
-    //TODO как делать валидацию времени?
+    //TODO Валидация даты отложена до уточнения реализации
     private LocalDate birthday;
 }
