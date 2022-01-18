@@ -4,7 +4,8 @@ import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import com.kataacademy.schoolportal.common.repository.persons.TeacherRepository;
 import com.kataacademy.schoolportal.common.services.persons.TeacherService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -16,12 +17,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Iterable<Teacher> getAllTeachers() {
+    public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Teacher getTeacherById(Long id) {
         return teacherRepository.findById(id).orElseThrow();
     }
