@@ -25,7 +25,7 @@ public abstract class Person {
     private String secondName;
     @SizeNotBlank(min = 4, message = "Поле lastName минимум 4 символа")
     private String lastName;
-    @Pattern(regexp="[мМжЖ]", message = "Поле sex 1 символ: М или Ж")
+    @Pattern(regexp="[МЖ]", message = "Поле sex 1 символ: М или Ж")
     private String sex;
     //TODO Валидация даты отложена до уточнения реализации
     private LocalDate birthday;
