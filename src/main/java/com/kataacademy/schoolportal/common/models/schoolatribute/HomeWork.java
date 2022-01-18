@@ -8,7 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 
 @Entity
@@ -19,17 +20,17 @@ public class HomeWork {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "homework_name")
+    @Column(name = "subject_name")
     private String name;
 
-    @Column(name = "homework_data")
-    private LocalDate data;
+    @Column(name = "date")
+    private LocalDate date;
 
-    @Column(name = "homework_description")
+    @Column(name = "description")
     private String description;
 
-    public HomeWork(String name, LocalDate data, String description) {
-        this.data = data;
+    public HomeWork(String name, LocalDate date, String description) {
+        this.date = date;
         this.name = name;
         this.description = description;
     }
