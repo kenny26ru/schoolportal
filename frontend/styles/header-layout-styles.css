@@ -1,0 +1,12 @@
+.button {
+    align-content: end;
+}
+.header{
+    background-color: #efefef;
+    padding-right: 40px;
+}
+.homeButton{
+    padding-top: 5px;
+    padding-left: 15px;
+    font-size: 24px;
+}
