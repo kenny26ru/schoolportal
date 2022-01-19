@@ -5,6 +5,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -19,14 +20,9 @@ public class PupilGenerator {
         Object[] names = mapName.keySet().toArray();
         String firstName = names[generator.nextInt(names.length)].toString();
         String sex = mapName.get(firstName);
-        String secondName = getSurname();
-        String lastName = getPatronymicMale();
+        String secondName = sex.equalsIgnoreCase("М") ? getSurname() : getSurname() + "a";
+        String lastName = sex.equalsIgnoreCase("М") ? getPatronymicMale() : getPatronymicFemale();
         LocalDate birthday = getDate();
-
-        if (sex.equalsIgnoreCase("Ж")) {
-            secondName = getSurname() + "a";
-            lastName = getPatronymicFemale();
-        }
 
         return new Pupil(firstName, secondName, lastName, sex, birthday);
     }
@@ -58,55 +54,53 @@ public class PupilGenerator {
     }
 
     private String getSurname() {
-        List<String> surname = new ArrayList<>();
+        List<String> surnameList = new ArrayList<>();
 
         try {
             File fileSurname = new ClassPathResource("data/Surname").getFile();
             try (Scanner scanner = new Scanner(fileSurname)) {
                 while (scanner.hasNextLine()) {
-                    surname.add(scanner.nextLine());
+                    surnameList.add(scanner.nextLine());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Collections.shuffle(surname);
-        return surname.get(0);
 
+        return surnameList.get(generator.nextInt(surnameList.size()));
     }
 
     private String getPatronymicMale() {
-        List<String> malePatronymic = new ArrayList<>();
+        List<String> malePatronymicList = new ArrayList<>();
 
         try {
             File filePatronMale = new ClassPathResource("data/MalePatronymic").getFile();
             try (Scanner scanner = new Scanner(filePatronMale)) {
                 while (scanner.hasNextLine()) {
-                    malePatronymic.add(scanner.nextLine());
+                    malePatronymicList.add(scanner.nextLine());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Collections.shuffle(malePatronymic);
-        return malePatronymic.get(0);
+
+        return malePatronymicList.get(generator.nextInt(malePatronymicList.size()));
     }
 
     private String getPatronymicFemale() {
 
-        List<String> femalePatronymic = new ArrayList<>();
+        List<String> femalePatronymicList = new ArrayList<>();
         try {
             File filePatronFemale = new ClassPathResource("data/FemalePatronymic").getFile();
             try (Scanner scanner = new Scanner(filePatronFemale)) {
                 while (scanner.hasNextLine()) {
-                    femalePatronymic.add(scanner.nextLine());
+                    femalePatronymicList.add(scanner.nextLine());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Collections.shuffle(femalePatronymic);
-        return femalePatronymic.get(0);
+        return femalePatronymicList.get(generator.nextInt(femalePatronymicList.size()));
 
     }
 
