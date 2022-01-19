@@ -112,9 +112,9 @@ public class PupilGenerator {
         return randomDate(dateStart, dateEnd);
     }
 
-    private LocalDate randomDate(LocalDate startInclusive, LocalDate endExclusive) {
-        long startEpochDay = startInclusive.toEpochDay();
-        long endEpochDay = endExclusive.toEpochDay();
+    private LocalDate randomDate(LocalDate startDate, LocalDate endDate) {
+        long startEpochDay = startDate.toEpochDay();
+        long endEpochDay = endDate.toEpochDay();
         long randomDay = ThreadLocalRandom
                 .current()
                 .nextLong(startEpochDay, endEpochDay);
