@@ -2,16 +2,18 @@ package com.kataacademy.schoolportal.common.mappers;
 
 import com.kataacademy.schoolportal.common.models.enums.SchoolSubjects;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component
 @Getter
+@Setter
 public class SchoolSubjectsByClassGrade {
-
 
     private final Map<Integer, List<SchoolSubjects>> schoolSubjectsGradationMap = new HashMap<>();
 
@@ -109,5 +111,11 @@ public class SchoolSubjectsByClassGrade {
                 SchoolSubjects.PHILOSOPHY, SchoolSubjects.ECOLOGY,
                 SchoolSubjects.ASTRONOMY, SchoolSubjects.BASIC_MILITARY_TRAINING,
                 SchoolSubjects.WORLD_ART_CULTURE, SchoolSubjects.RHETORIC));
+    }
+
+    public List<SchoolSubjects> schoolSubjectsListByClassGrade(Integer classGrade) {
+        if (classGrade != null && classGrade <= 11) {
+            return new ArrayList<>(schoolSubjectsGradationMap.get(classGrade));
+        } else throw new IllegalArgumentException("Номера классов с 1 по 11 включительно!");
     }
 }
