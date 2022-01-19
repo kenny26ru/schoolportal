@@ -15,14 +15,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PupilGenerator {
     Random generator = new Random();
 
-    public Pupil generatePupil() {
+    public Pupil generatePupilByGrade(Grade grade) {
         Map<String, String> mapName = getName();
         Object[] names = mapName.keySet().toArray();
         String firstName = names[generator.nextInt(names.length)].toString();
         String sex = mapName.get(firstName);
         String secondName = sex.equalsIgnoreCase("М") ? getSurname() : getSurname() + "a";
         String lastName = sex.equalsIgnoreCase("М") ? getPatronymicMale() : getPatronymicFemale();
-        LocalDate birthday = getDate();
+        LocalDate birthday = getDate(grade);
 
         return new Pupil(firstName, secondName, lastName, sex, birthday);
     }
@@ -88,7 +88,6 @@ public class PupilGenerator {
     }
 
     private String getPatronymicFemale() {
-
         List<String> femalePatronymicList = new ArrayList<>();
         try {
             File filePatronFemale = new ClassPathResource("data/FemalePatronymic").getFile();
@@ -104,10 +103,12 @@ public class PupilGenerator {
 
     }
 
-    private LocalDate getDate() {
+    private LocalDate getDate(Grade grade) {
+        String[] rangeAge = grade.getValue().split("-");
+
         LocalDate dateNow = LocalDate.now();
-        LocalDate dateStart = dateNow.minusYears(18);
-        LocalDate dateEnd = dateNow.minusYears(6);
+        LocalDate dateStart = dateNow.minusYears(Integer.parseInt(rangeAge[1]));
+        LocalDate dateEnd = dateNow.minusYears(Integer.parseInt(rangeAge[0]));
 
         return randomDate(dateStart, dateEnd);
     }
