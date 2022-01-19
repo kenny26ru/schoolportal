@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.personcontrollers.exception;
+package com.kataacademy.schoolportal.common.controllers.personcontrollers.exception;
 
 public class PersonNotFoundException extends RuntimeException{
     public PersonNotFoundException(String name, Long id) {

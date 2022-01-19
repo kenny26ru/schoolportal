@@ -1,7 +1,7 @@
-package com.kataacademy.schoolportal.common.personcontrollers;
+package com.kataacademy.schoolportal.common.controllers.personcontrollers;
 
 import com.kataacademy.schoolportal.common.models.persons.Director;
-import com.kataacademy.schoolportal.common.personcontrollers.exception.PersonNotFoundException;
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
