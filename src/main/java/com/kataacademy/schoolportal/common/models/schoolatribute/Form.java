@@ -17,7 +17,10 @@ public class Form {
     private byte number;
     private String name;
     private String formName;
+
+    @OneToMany(mappedBy = "formName")
     private List<Pupil> pupilList;
+
     private Teacher formTeacher;
     private String profile;
 

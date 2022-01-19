@@ -1,14 +1,10 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
-import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -21,18 +17,28 @@ public class Pupil extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @Column(name = "nameForm")
-//    String nameForm;
-
     @EmbeddedId
     @Column(name = "form_name")
-    private Form formName;
+//    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private FormName formName;
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);
     }
 
-//    public void setNameForm(Form form) {
-//        this.nameForm = form.getNumber() + form.getName();
-//    }
+    @EqualsAndHashCode
+    @ToString
+    @Embeddable
+    public class FormName implements Serializable {
+
+        static final long serialVersionUID = 1L;
+
+        @Getter
+        @Setter
+        private byte number;
+
+        @Getter
+        @Setter
+        private String name;
+    }
 }
