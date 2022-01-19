@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.personcontrollers.exception;
+package com.kataacademy.schoolportal.common.controllers.personcontrollers.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

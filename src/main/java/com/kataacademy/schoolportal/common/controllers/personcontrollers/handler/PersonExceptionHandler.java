@@ -1,8 +1,8 @@
-package com.kataacademy.schoolportal.common.personcontrollers.handler;
+package com.kataacademy.schoolportal.common.controllers.personcontrollers.handler;
 
-import com.kataacademy.schoolportal.common.personcontrollers.exception.PersonForbiddenException;
-import com.kataacademy.schoolportal.common.personcontrollers.exception.BodyMessage;
-import com.kataacademy.schoolportal.common.personcontrollers.exception.PersonNotFoundException;
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonForbiddenException;
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.BodyMessage;
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
