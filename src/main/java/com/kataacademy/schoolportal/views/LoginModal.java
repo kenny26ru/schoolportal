@@ -32,13 +32,9 @@ public class LoginModal extends Div {
         Button cancelButton = new Button("Назад", e -> dialog.close());
         Button loginButton = new Button("Войти", e -> dialog.close());
         loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        HorizontalLayout buttonLayout = new HorizontalLayout(cancelButton,
-                loginButton);
-        buttonLayout
-                .setJustifyContentMode(FlexComponent.JustifyContentMode.END);
-
-        VerticalLayout dialogLayout = new VerticalLayout(headline, fieldLayout,
-                buttonLayout);
+        HorizontalLayout buttonLayout = new HorizontalLayout(cancelButton, loginButton);
+        buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+        VerticalLayout dialogLayout = new VerticalLayout(headline, fieldLayout, buttonLayout);
         dialogLayout.setPadding(false);
         dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
         dialogLayout.getStyle().set("width", "300px").set("max-width", "100%");
