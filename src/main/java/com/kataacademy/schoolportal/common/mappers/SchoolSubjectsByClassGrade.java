@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Getter
@@ -114,7 +111,7 @@ public class SchoolSubjectsByClassGrade {
     }
 
     public List<SchoolSubjects> schoolSubjectsListByClassGrade(Integer classGrade) {
-        if (classGrade != null && classGrade <= 11) {
+        if (classGrade != null && classGrade >= 1 && classGrade <= 11) {
             return new ArrayList<>(schoolSubjectsGradationMap.get(classGrade));
         } else throw new IllegalArgumentException("Номера классов с 1 по 11 включительно!");
     }
