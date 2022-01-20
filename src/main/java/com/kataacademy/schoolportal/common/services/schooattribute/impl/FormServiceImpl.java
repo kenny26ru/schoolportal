@@ -34,12 +34,11 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public void edit(Form form) {
-        Long id = form.getId();
 
-        if (id != null && repository.findById(id).isPresent()) {
+        if (repository.findById(form.getId()).isPresent()) {
             repository.save(form);
         } else {
-            throw new EntityNotFoundException("form id is empty or not found in the repository, id=" + id);
+            throw new EntityNotFoundException("form id is empty or not found in the repository");
         }
     }
 
