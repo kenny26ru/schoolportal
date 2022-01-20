@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -14,97 +15,69 @@ import java.util.concurrent.ThreadLocalRandom;
 @Component
 public class PupilGenerator {
     Random generator = new Random();
+    private static File fileMale;
+    private static File fileFemale;
+    private static File fileSurname;
+    private static File filePatronMale;
+    private static File filePatronFemale;
+
+    static {
+        try {
+            fileMale = new ClassPathResource("data/MaleNames").getFile();
+            fileFemale = new ClassPathResource("data/FemaleNames").getFile();
+            fileSurname = new ClassPathResource("data/Surname").getFile();
+            filePatronMale = new ClassPathResource("data/MalePatronymic").getFile();
+            filePatronFemale = new ClassPathResource("data/FemalePatronymic").getFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Pupil generatePupilByGrade(Grade grade) {
-
         return generatePupil(grade);
     }
 
     private Pupil generatePupil(Grade grade) {
-        Map<String, String> mapName = getName();
+        Map<String, String> mapName = getFirstName();
         Object[] names = mapName.keySet().toArray();
         String firstName = names[generator.nextInt(names.length)].toString();
         String sex = mapName.get(firstName);
-        String secondName = sex.equalsIgnoreCase("М") ? getSurname() : getSurname() + "a";
-        String lastName = sex.equalsIgnoreCase("М") ? getPatronymicMale() : getPatronymicFemale();
+        String secondName = sex.equalsIgnoreCase("М") ? getSecondName() : getSecondName() + "a";
+        String lastName = sex.equalsIgnoreCase("М") ? getLastNameMale() : getLastNameFemale();
         LocalDate birthday = getDate(grade);
 
         return new Pupil(firstName, secondName, lastName, sex, birthday);
     }
 
-    private Map<String, String> getName() {
-        File fileMale;
-        File fileFemale;
-        Map<String, String> mapName = new HashMap<>();
-        try {
-            fileMale = new ClassPathResource("data/MaleNames").getFile();
-            fileFemale = new ClassPathResource("data/FemaleNames").getFile();
+    private Map<String, String> getFirstName() {
 
-            try (Scanner scannerMale = new Scanner(fileMale)) {
-                while (scannerMale.hasNextLine()) {
-                    mapName.put(scannerMale.nextLine(), "М");
-                }
-            }
+        List<String> nameListMale = getNamesFromFiles(fileMale);
+        List<String> nameListFeMale = getNamesFromFiles(fileFemale);
+        Map<String, String> namesMap = new HashMap<>();
 
-            try (Scanner scanner = new Scanner(fileFemale)) {
-                while (scanner.hasNextLine()) {
-                    mapName.put(scanner.nextLine(), "Ж");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (String name : nameListMale) {
+            namesMap.put(name, "М");
+        }
+        for (String name : nameListFeMale) {
+            namesMap.put(name, "Ж");
         }
 
-        return mapName;
+        return namesMap;
     }
 
-    private String getSurname() {
-        List<String> surnameList = new ArrayList<>();
-
-        try {
-            File fileSurname = new ClassPathResource("data/Surname").getFile();
-            try (Scanner scanner = new Scanner(fileSurname)) {
-                while (scanner.hasNextLine()) {
-                    surnameList.add(scanner.nextLine());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return surnameList.get(generator.nextInt(surnameList.size()));
+    private String getSecondName() {
+        List<String> nameList = getNamesFromFiles(fileSurname);
+        return nameList.get(generator.nextInt(nameList.size()));
     }
 
-    private String getPatronymicMale() {
-        List<String> malePatronymicList = new ArrayList<>();
-
-        try {
-            File filePatronMale = new ClassPathResource("data/MalePatronymic").getFile();
-            try (Scanner scanner = new Scanner(filePatronMale)) {
-                while (scanner.hasNextLine()) {
-                    malePatronymicList.add(scanner.nextLine());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return malePatronymicList.get(generator.nextInt(malePatronymicList.size()));
+    private String getLastNameMale() {
+        List<String> nameList = getNamesFromFiles(filePatronMale);
+        return nameList.get(generator.nextInt(nameList.size()));
     }
 
-    private String getPatronymicFemale() {
-        List<String> femalePatronymicList = new ArrayList<>();
-        try {
-            File filePatronFemale = new ClassPathResource("data/FemalePatronymic").getFile();
-            try (Scanner scanner = new Scanner(filePatronFemale)) {
-                while (scanner.hasNextLine()) {
-                    femalePatronymicList.add(scanner.nextLine());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return femalePatronymicList.get(generator.nextInt(femalePatronymicList.size()));
+    private String getLastNameFemale() {
+        List<String> nameList = getNamesFromFiles(filePatronFemale);
+        return nameList.get(generator.nextInt(nameList.size()));
 
     }
 
@@ -116,6 +89,18 @@ public class PupilGenerator {
         LocalDate dateEnd = dateNow.minusYears(Integer.parseInt(rangeAge[0]));
 
         return randomDate(dateStart, dateEnd);
+    }
+
+    private List<String> getNamesFromFiles(File file) {
+        List<String> nameList = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                nameList.add(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return nameList;
     }
 
     private LocalDate randomDate(LocalDate startDate, LocalDate endDate) {
