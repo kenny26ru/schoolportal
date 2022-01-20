@@ -1,11 +1,11 @@
 package com.kataacademy.schoolportal.common.generator.persons;
 
+import com.kataacademy.schoolportal.common.models.enums.Grade;
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -15,7 +15,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PupilGenerator {
     Random generator = new Random();
 
-    public Pupil generatePupilByGrade(Grade grade) {
+    public Pupil generatePupil(Grade grade) {
+
+        return generatePupilByGrade(grade);
+    }
+
+    private Pupil generatePupilByGrade(Grade grade) {
         Map<String, String> mapName = getName();
         Object[] names = mapName.keySet().toArray();
         String firstName = names[generator.nextInt(names.length)].toString();

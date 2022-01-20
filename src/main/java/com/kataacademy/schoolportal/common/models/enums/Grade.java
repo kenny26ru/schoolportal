@@ -1,4 +1,4 @@
-package com.kataacademy.schoolportal.common.generator.persons;
+package com.kataacademy.schoolportal.common.models.enums;
 
 public enum Grade {
     ONE("6-8"),
