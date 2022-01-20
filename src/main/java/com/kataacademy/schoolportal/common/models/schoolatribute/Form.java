@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -26,11 +26,11 @@ public class Form {
 
     private String formName;
 
-    @OneToMany(mappedBy = "form", fetch = FetchType.EAGER)
-    private List<Pupil> pupilList;
+    @OneToMany(mappedBy = "form")
+    private Set<Pupil> pupilSet;
 
-    @ManyToMany(mappedBy = "forms")
-    private List<Teacher> formTeacher;
+    @OneToOne(mappedBy = "teacherForm")
+    private Teacher formTeacher;
 
     private String profile;
 
