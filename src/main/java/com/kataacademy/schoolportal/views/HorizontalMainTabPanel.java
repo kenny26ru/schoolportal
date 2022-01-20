@@ -1,10 +1,12 @@
 package com.kataacademy.schoolportal.views;
 
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 
+@CssImport("./styles/tab-panel-layout-styles.css")
 public class HorizontalMainTabPanel extends Div {
 
     public HorizontalMainTabPanel() {
@@ -19,6 +21,7 @@ public class HorizontalMainTabPanel extends Div {
 
         Tabs tabs = new Tabs(details, rating, learning, contacts);
         tabs.addThemeVariants(TabsVariant.LUMO_CENTERED);
+        tabs.addClassName("tab-panel");
         return tabs;
     }
 }
