@@ -15,12 +15,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PupilGenerator {
     Random generator = new Random();
 
-    public Pupil generatePupil(Grade grade) {
+    public Pupil generatePupilByGrade(Grade grade) {
 
-        return generatePupilByGrade(grade);
+        return generatePupil(grade);
     }
 
-    private Pupil generatePupilByGrade(Grade grade) {
+    private Pupil generatePupil(Grade grade) {
         Map<String, String> mapName = getName();
         Object[] names = mapName.keySet().toArray();
         String firstName = names[generator.nextInt(names.length)].toString();
