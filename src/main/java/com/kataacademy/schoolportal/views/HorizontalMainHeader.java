@@ -42,7 +42,7 @@ public class HorizontalMainHeader extends Div {
         Button registrationButton = new Button("Регистрация", e -> registrationModal.open());
 
         HorizontalLayout buttonLayout = new HorizontalLayout(loginButton, registrationButton, homeButton);
-        homeButton.addClickListener(e -> UI.getCurrent().navigate(HorizontalMainHeader.class));
+        homeButton.addClickListener(e -> UI.getCurrent().navigate(HomePage.class));
         homeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
         homeButton.addClassName("homeButton");
         homeButton.getStyle().set("margin-inline-end", "auto");
@@ -50,6 +50,7 @@ public class HorizontalMainHeader extends Div {
         //loginButton.addClickListener(e -> UI.getCurrent().navigate(LoginView.class));
         buttonLayout.getStyle().set("flex-wrap", "wrap");
         buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+        registrationButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         setSizeFull();
 
         headerLayout.addClassName("header");
