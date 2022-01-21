@@ -3,25 +3,35 @@ package com.kataacademy.schoolportal.common.models.schoolatribute;
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
 
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor
+
+@Entity
+@Table(name = "forms")
 public class Form {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private byte number;
+
     private String name;
+
     private String formName;
 
-    @OneToMany(mappedBy = "formName")
-    private List<Pupil> pupilList;
+    @OneToMany(mappedBy = "form")
+    private Set<Pupil> pupilSet;
 
+    @OneToOne(mappedBy = "teacherForm")
     private Teacher formTeacher;
+
     private String profile;
 
 }
