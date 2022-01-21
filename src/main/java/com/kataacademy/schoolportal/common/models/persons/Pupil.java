@@ -1,9 +1,11 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
-import lombok.*;
+import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter @Setter
@@ -17,28 +19,15 @@ public class Pupil extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @EmbeddedId
-    @Column(name = "form_name")
-//    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private FormName formName;
+    /*
+     * Аннотация @JoinColumn нужна для настройки имени столбца в таблице pupils,
+     * который сопоставляется с первичным ключом в таблице forms.
+     * */
+    @ManyToOne
+    @JoinColumn(name = "form_name", nullable = false)
+    private Form form;
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);
-    }
-
-    @EqualsAndHashCode
-    @ToString
-    @Embeddable
-    public class FormName implements Serializable {
-
-        static final long serialVersionUID = 1L;
-
-        @Getter
-        @Setter
-        private byte number;
-
-        @Getter
-        @Setter
-        private String name;
     }
 }
