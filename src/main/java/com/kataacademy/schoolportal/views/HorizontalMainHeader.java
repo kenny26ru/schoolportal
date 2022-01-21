@@ -14,13 +14,14 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-
-@Route("")
 @CssImport("./styles/header-layout-styles.css")
 @HtmlImport("./src/header-layout-src.html")
-public class BasicHeader extends Div {
+public class HorizontalMainHeader extends Div {
 
-    public BasicHeader() {
+    public HorizontalMainHeader() {
+    }
+
+    public HorizontalLayout headerLayout() {
 
         Dialog registrationModal = new Dialog();
         registrationModal.getElement().setAttribute("aria-label", "Регистрация нового пользователя");
@@ -33,15 +34,15 @@ public class BasicHeader extends Div {
         loginModal.add(loginModalLayout);
 
 
-        HorizontalLayout header = new HorizontalLayout();
+        HorizontalLayout headerLayout = new HorizontalLayout();
 
-        Button homeButton = new Button(new Icon(VaadinIcon.HOME));
+        Button homeButton = new Button(new Icon(VaadinIcon.OPEN_BOOK));
 
         Button loginButton = new Button("Войти", e -> loginModal.open());
         Button registrationButton = new Button("Регистрация", e -> registrationModal.open());
 
         HorizontalLayout buttonLayout = new HorizontalLayout(loginButton, registrationButton, homeButton);
-        homeButton.addClickListener(e -> UI.getCurrent().navigate(BasicHeader.class));
+        homeButton.addClickListener(e -> UI.getCurrent().navigate(HomePage.class));
         homeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
         homeButton.addClassName("homeButton");
         homeButton.getStyle().set("margin-inline-end", "auto");
@@ -49,16 +50,15 @@ public class BasicHeader extends Div {
         //loginButton.addClickListener(e -> UI.getCurrent().navigate(LoginView.class));
         buttonLayout.getStyle().set("flex-wrap", "wrap");
         buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+        registrationButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         setSizeFull();
 
-
-        header.addClassName("header");
-        header.setWidth("100%");
-        header.setPadding(true);
-        header.add(homeButton);
-        header.add(loginModal, loginButton);
-        header.add(registrationModal, registrationButton);
-
-        add(header);
+        headerLayout.addClassName("header");
+        headerLayout.setWidth("100%");
+        headerLayout.setPadding(true);
+        headerLayout.add(homeButton);
+        headerLayout.add(loginModal, loginButton);
+        headerLayout.add(registrationModal, registrationButton);
+        return headerLayout;
     }
 }
