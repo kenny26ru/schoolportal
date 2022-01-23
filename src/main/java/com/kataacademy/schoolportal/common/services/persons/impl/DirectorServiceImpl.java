@@ -27,13 +27,13 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public void saveDirector(Director director) {
-        directorRepository.save(director);
+    public Director saveDirector(Director director) {
+        return directorRepository.save(director);
     }
 
     @Override
-    public void editDirector(Director director) {
-        directorRepository.save(director);
+    public Director editDirector(Director director) {
+        return directorRepository.save(director);
     }
 
     @Override

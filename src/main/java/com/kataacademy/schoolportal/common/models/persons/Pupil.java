@@ -16,9 +16,14 @@ public class Pupil extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);
+    }
+
+    public Pupil(Long id, String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
+        super(firstName, secondName, lastName, sex, birthday);
+        this.id = id;
     }
 }

@@ -1,11 +1,13 @@
 package com.kataacademy.schoolportal.common.controllers.personcontrollers.handler;
 
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.ParamsRestController;
 import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonForbiddenException;
 import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.BodyMessage;
 import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,8 +21,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.kataacademy.schoolportal.common.controllers.personcontrollers.ParamsRestController.APPLICATION_JSON_UTF8;
+
 @ControllerAdvice
 public class PersonExceptionHandler extends ResponseEntityExceptionHandler {
+
+    public static final String MESSAGE_BAD_JSON_FORMAT = "ERROR: Нарушен JSON формат";
+    public static final String MESSAGE_BAD_JSON_DATA = "ERROR: Ошибка в JSON данных";
+    public static final String FORMAT_MESSAGE_BAD_URI_PARAM = "ERROR: Параметру 'id' задано неверное значение '%s'. Допустимый тип 'Long'";
 
     /**
      * Обрабатывает исключения, когда в БД не найдена запись
@@ -28,8 +36,10 @@ public class PersonExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(PersonNotFoundException.class)
     public ResponseEntity<BodyMessage> handlerException(
             PersonNotFoundException ex) {
-        BodyMessage body = new BodyMessage(ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(new BodyMessage(ex.getMessage()));
     }
 
     /**
@@ -37,7 +47,10 @@ public class PersonExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return new ResponseEntity<>(new BodyMessage("ERROR: Нарушен JSON формат", ex.getMessage()), status);
+        return ResponseEntity
+                .status(status)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(new BodyMessage(MESSAGE_BAD_JSON_FORMAT, ex.getMessage()));
     }
 
     /**
@@ -51,8 +64,10 @@ public class PersonExceptionHandler extends ResponseEntityExceptionHandler {
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        BodyMessage body = new BodyMessage("ERROR: Ошибка в JSON данных", ex.getMessage(), errors);
-        return new ResponseEntity<>(body, status);
+        return ResponseEntity
+                .status(status)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(new BodyMessage(MESSAGE_BAD_JSON_DATA, ex.getMessage(), errors));
     }
 
     /**
@@ -64,12 +79,12 @@ public class PersonExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
         BodyMessage body = new BodyMessage();
-        Class<?> aClass = ex.getRequiredType();
-        body.setMessage(String.format("ERROR: Параметру '%s' задано неверное значение '%s'%s",
-                ex.getName(), ex.getValue(),
-                aClass==null?"":". Допустимый тип '" + aClass.getSimpleName() + "'"));
+        body.setMessage(String.format(FORMAT_MESSAGE_BAD_URI_PARAM, ex.getValue()));
         body.setDebug(ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(body);
     }
 
     /**
@@ -96,7 +111,9 @@ public class PersonExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-        BodyMessage body = new BodyMessage("Внутренняя ошибка", ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(new BodyMessage("Внутренняя ошибка", ex.getMessage()));
     }
 }

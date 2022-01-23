@@ -9,9 +9,9 @@ public interface DirectorService {
 
     public Director getDirectorById(Long id);
 
-    public void saveDirector(Director director);
+    public Director saveDirector(Director director);
 
-    public void editDirector(Director director);
+    public Director editDirector(Director director);
 
     public void deleteDirectorById(Long id);
 }

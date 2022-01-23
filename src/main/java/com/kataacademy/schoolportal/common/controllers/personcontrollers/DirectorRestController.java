@@ -1,34 +1,39 @@
 package com.kataacademy.schoolportal.common.controllers.personcontrollers;
 
 import com.kataacademy.schoolportal.common.models.persons.Director;
-import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.kataacademy.schoolportal.common.controllers.personcontrollers.ParamsRestController.APPLICATION_JSON_UTF8;
+import static com.kataacademy.schoolportal.common.controllers.personcontrollers.ParamsRestController.FORMAT_MESSAGE_DELETE;
 
 @RestController
 @RequestMapping("/api/directors")
 public class DirectorRestController {
 
-    private static final String PERSON = "директор";
+    public static final String URL_DIRECTOR = "/api/directors";
+    public static final String PERSON = "директор";
 
-    //SonarLint выдал сообщение "Field injection is not recommended "
     @Autowired
-    private DirectorService directorService;
+    private DirectorService service;
 
     /**
      * Возвращает список всех директоров
      */
     @GetMapping("")
     public ResponseEntity<List<Director>> getAllDirectors() {
-        List<Director> directors = directorService.getAllDirectors();
-        return ResponseEntity.ok().body(directors);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(service.getAllDirectors());
     }
 
     /**
@@ -36,12 +41,15 @@ public class DirectorRestController {
      * или бросает исключение PersonNotFoundException
      */
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Director> getOneDirector(@PathVariable("id") Long id) throws PersonNotFoundException {
-        Director director = directorService.getDirectorById(id);
+    public ResponseEntity<Director> getDirectorById(@PathVariable Long id) throws PersonNotFoundException {
+        Director director = service.getDirectorById(id);
         if(director == null) {
             throw new PersonNotFoundException(PERSON, id);
         }
-        return ResponseEntity.ok().body(director);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(director);
     }
 
     /**
@@ -49,8 +57,10 @@ public class DirectorRestController {
      */
     @PostMapping("")
     public ResponseEntity<Director> createDirector(@RequestBody @Valid Director director) {
-        directorService.saveDirector(director);
-        return ResponseEntity.status(HttpStatus.CREATED).body(director);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(service.saveDirector(director));
     }
 
     /**
@@ -60,26 +70,35 @@ public class DirectorRestController {
     @PutMapping("")
     public ResponseEntity<Director> updateDirector(@RequestBody @Valid Director director) throws PersonNotFoundException {
         Long id = director.getId();
-        Director oldDirector = directorService.getDirectorById(id);
+        Director oldDirector = service.getDirectorById(id);
         if(oldDirector == null) {
             throw new PersonNotFoundException(PERSON, id);
         }
-        directorService.editDirector(director);
-        return ResponseEntity.ok().body(director);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(service.editDirector(director));
     }
 
     /**
-     * Удаляет персону с заданым id
+     * Удаляет директора с заданым id
      * или бросает исключение PersonNotFoundException
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDirector(@PathVariable Long id) throws PersonNotFoundException {
-        Director director = directorService.getDirectorById(id);
+        Director director = service.getDirectorById(id);
         if(director == null) {
             throw new PersonNotFoundException(PERSON, id);
         }
-        directorService.deleteDirectorById(id);
-        return ResponseEntity.ok().body("OK. Директор с id=" + id + " удален");
+        service.deleteDirectorById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+                .body(String.format(FORMAT_MESSAGE_DELETE, PERSON, id));
     }
 
+    @DeleteMapping("/do500")
+    public ResponseEntity<String> internalError() {
+        throw new ArrayIndexOutOfBoundsException("ERROR: 500");
+    }
 }

@@ -20,22 +20,22 @@ public class PupilServiceImpl implements PupilService {
     }
 
     @Override
-    public Pupil getPupilById(long id) {
+    public Pupil getPupilById(Long id) {
         return pupilRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public void savePupil(Pupil pupil) {
-        pupilRepository.save(pupil);
+    public Pupil savePupil(Pupil pupil) {
+        return pupilRepository.save(pupil);
     }
 
     @Override
-    public void editPupil(Pupil pupil) {
-        pupilRepository.save(pupil);
+    public Pupil editPupil(Pupil pupil) {
+        return pupilRepository.save(pupil);
     }
 
     @Override
-    public void deletePupil(long id) {
+    public void deletePupilById(Long id) {
         pupilRepository.deleteById(id);
     }
 }
