@@ -2,6 +2,7 @@ package com.kataacademy.schoolportal.common.queue;
 
 
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
+import com.kataacademy.schoolportal.common.queue.exception.QueueException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -32,11 +33,11 @@ public class PupilQueue {
         Map<Integer, Pupil> map = new HashMap<>();
         int classNumber = LocalDate.now().getYear() - pupil.getBirthday().getYear() - 7;
         if (classNumber > 11 || classNumber < 1) {
-            throw new RuntimeException("Возраст не тот!");
+            throw new QueueException.BeyondAgeLimitsException();
         }
         map.put(classNumber, pupil);
         if (valid.get(classNumber) == 30) {
-            throw new RuntimeException("Мест в " + classNumber + " классе нет!");
+            throw new QueueException.NoPlaceInClassException(classNumber);
         }
         valid.merge(classNumber, valid.get(classNumber), (a, b) -> b + 1 );
         res.add(map);
