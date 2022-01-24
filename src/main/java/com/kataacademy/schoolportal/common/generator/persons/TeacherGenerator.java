@@ -62,12 +62,7 @@ public class TeacherGenerator {
     }
 
     private String getString(boolean sex, Path maleFile, Path femaleFile) {
-        List<String> fileList;
-        if(sex) {
-            fileList = getFiles(maleFile);
-        } else {
-            fileList = getFiles(femaleFile);
-        }
+        List<String> fileList = sex ? getFiles(maleFile) : getFiles(femaleFile);
         return fileList.get(generator.nextInt(fileList.size()));
     }
 
