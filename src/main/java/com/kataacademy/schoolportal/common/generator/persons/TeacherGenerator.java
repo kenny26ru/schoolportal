@@ -1,15 +1,12 @@
 package com.kataacademy.schoolportal.common.generator.persons;
 
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
