@@ -8,7 +8,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.PWA;
 
+@PWA(offlinePath = "hello1", name = "", shortName = "",enableInstallPrompt = false) //не нашел ничего более оригинального, чем вставить такой костыль)
 @Route("hello")
 public class FirstView extends VerticalLayout {
 

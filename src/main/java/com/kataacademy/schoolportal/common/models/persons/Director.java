@@ -1,16 +1,16 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 @Getter @Setter
 @NoArgsConstructor
-@Table(name = "director")
+
+@Entity
+@Table(name = "directors")
 public class Director extends Person {
 
     @Id
