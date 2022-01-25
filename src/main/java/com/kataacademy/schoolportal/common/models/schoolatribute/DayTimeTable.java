@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -22,9 +22,9 @@ public class DayTimeTable {
     private Integer id;
 
     @Column(name = "day_time")
-    private LocalDateTime dayTime;
+    private LocalDate dayTime;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "day_time_lessons",
             joinColumns = @JoinColumn(name = "day_time_id"),
@@ -32,8 +32,8 @@ public class DayTimeTable {
     )
     private Set<Lesson> lessons;
 
-    public DayTimeTable(LocalDateTime dateTime, Set<Lesson> lessons) {
-        this.dayTime = dateTime;
+    public DayTimeTable(LocalDate dayTime, Set<Lesson> lessons) {
+        this.dayTime = dayTime;
         this.lessons = lessons;
     }
 
@@ -41,7 +41,7 @@ public class DayTimeTable {
     public String toString() {
         return "DayTimeTable{" +
                 "id=" + id +
-                ", dateTime=" + dayTime +
+                ", dayTime=" + dayTime +
                 ", lessons=" + lessons +
                 '}';
     }
