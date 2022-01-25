@@ -6,13 +6,13 @@ import com.kataacademy.schoolportal.common.queue.exception.QueueException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class PupilQueue {
 
-    private static final Queue<Map<Integer, Pupil>> res = new LinkedList<>();
+    private static final BlockingQueue<Map<Integer, Pupil>> res = new LinkedBlockingQueue<>();
     private static final Map<Integer, Integer> valid = new HashMap<>();
 
     static {
