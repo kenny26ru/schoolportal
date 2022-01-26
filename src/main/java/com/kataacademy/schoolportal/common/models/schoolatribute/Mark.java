@@ -22,7 +22,13 @@ public class Mark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    /*
+     * Аннотацию @ManyToOne не стал добавлять, т.к. SchoolSubjects - это Enum.
+     * Вместо этого поставил @Enumerated(EnumType.STRING)
+     */
     @Column(name = "school_subject")
+    @Enumerated(EnumType.STRING)
+//    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private SchoolSubjects schoolSubjects;
 
     @Min(2)
