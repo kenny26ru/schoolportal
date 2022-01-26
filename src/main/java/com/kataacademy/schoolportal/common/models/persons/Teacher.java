@@ -1,12 +1,14 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
 import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
+import com.kataacademy.schoolportal.common.models.schoolatribute.Lesson;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -30,8 +32,13 @@ public class Teacher extends Person {
     @JoinColumn(name = "form_id", referencedColumnName = "id")
     private Form teacherForm;
 
-    public Teacher(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "teacher")
+    private Set<Lesson> lessons;
+
+    public Teacher(String firstName, String secondName, String lastName, String sex, LocalDate birthday, Set<Lesson> lessons) {
         super(firstName, secondName, lastName, sex, birthday);
+
+        this.lessons = lessons;
     }
 
 }
