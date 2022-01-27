@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,10 @@ public class Lesson {
 
     @Column(name = "number_classroom")
     private Integer numberClassroom;
+
+    @ManyToOne
+    @JoinColumn(name="teacher_id", referencedColumnName = "id")
+    private Teacher teacher;
 
     public Lesson(String subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
         this.subjectName = subjectName;
