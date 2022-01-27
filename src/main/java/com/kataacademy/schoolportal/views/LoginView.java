@@ -1,13 +1,19 @@
 package com.kataacademy.schoolportal.views;
 
+import com.kataacademy.schoolportal.secutity.controllers.AuthController;
+import com.kataacademy.schoolportal.secutity.request.LoginRequest;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.Theme;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Route("login")
+@Route("/login")
 public class LoginView extends Div {
+
+    @Autowired
+    AuthController authController;
 
     public LoginView() {
 
@@ -33,10 +39,14 @@ public class LoginView extends Div {
 
         LoginOverlay loginOverlay = new LoginOverlay();
         loginOverlay.setI18n(i18n);
+
         add(loginOverlay);
+        loginOverlay.addLoginListener((e) -> {
+            LoginRequest login = new LoginRequest(e.getUsername(), e.getPassword());
+            authController.authenticateUser(login);
+            //UI.getCurrent().navigate("school-project/teacher");
+        });
         loginOverlay.setOpened(true);
-        //loginOverlay.getElement().getThemeList().add("dark");
         loginOverlay.getElement().setAttribute("no-autofocus", "");
     }
-
 }

@@ -31,21 +31,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/")
 public class AuthController {
 
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
     UserService userService;
-
     @Autowired
     RoleService roleService;
-
     @Autowired
     PasswordEncoder encoder;
-
     @Autowired
     JWTUtils jwtUtils;
 
@@ -56,17 +52,16 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
         User user = (User) authentication.getPrincipal();
+        String jwt = jwtUtils.generateJwtToken(user);
+
         List<String> roles = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 user.getId(),
-                user.getUsername(),
-                roles));
+                user.getUsername(), roles));
     }
 
     @PostMapping("/signup")
@@ -141,5 +136,4 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("Пользователь успешно зарегистрирован!"));
     }
-
 }

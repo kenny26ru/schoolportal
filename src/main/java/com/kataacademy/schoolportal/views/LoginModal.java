@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.views;
 
+import com.kataacademy.schoolportal.secutity.controllers.AuthController;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -9,8 +10,14 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoginModal extends Div {
+
+    @Autowired
+    private AuthController authController;
 
     public LoginModal() {
 
