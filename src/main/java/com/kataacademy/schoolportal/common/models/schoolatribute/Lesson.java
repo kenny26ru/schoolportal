@@ -37,7 +37,7 @@ public class Lesson {
     @Column(name = "number_classroom")
     private Integer numberClassroom;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "lesson_teacher",
             joinColumns = @JoinColumn(name = "lesson_id"),
