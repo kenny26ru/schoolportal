@@ -1,8 +1,10 @@
 package com.kataacademy.schoolportal.common.controllers.personcontrollers;
 
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import com.kataacademy.schoolportal.common.services.persons.PupilService;
-import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +27,14 @@ public class PupilRestController {
     @Autowired
     private PupilService service;
 
-    /**
-     * Возвращает список всех учеников
-     */
+
     @GetMapping()
+    @ApiOperation(
+            value = "Вернуть список всех учеников",
+            notes = "Возвращает список учеников с уникальными параметрами",
+            response = Pupil.class,
+            responseContainer = "List"
+    )
     public ResponseEntity<List<Pupil>> getAllPupils() {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -36,15 +42,18 @@ public class PupilRestController {
                 .body(service.getAllPupils());
     }
 
-    /**
-     * Возвращает ученика с заданым идентификатором
-     * или бросает исключение PersonNotFoundException
-     */
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Pupil> getPupilById(@PathVariable Long id) throws PersonNotFoundException {
+    @ApiOperation(
+            value = "Вернуть ученика с заданным ID",
+            notes = "Возвращает ученика с заданым идентификатором или бросает исключение PersonNotFoundException",
+            response = Pupil.class
+    )
+    public ResponseEntity<Pupil> getPupilById(
+            @ApiParam(value = "Идентификатор ученика, которого нужно найти", required = true)
+            @PathVariable Long id) throws PersonNotFoundException {
         Pupil pupil = service.getPupilById(id);
-        if(pupil == null) {
-            throw new PersonNotFoundException(PERSON,id);
+        if (pupil == null) {
+            throw new PersonNotFoundException(PERSON, id);
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -52,10 +61,12 @@ public class PupilRestController {
                 .body(pupil);
     }
 
-    /**
-     * Создает нового ученика
-     */
     @PostMapping()
+    @ApiOperation(
+            value = "Создать нового ученика",
+            notes = "Создает ученика с заданными параметрами",
+            response = Pupil.class
+    )
     public ResponseEntity<Pupil> createPupil(@RequestBody @Valid Pupil pupil) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -63,16 +74,17 @@ public class PupilRestController {
                 .body(service.savePupil(pupil));
     }
 
-    /**
-     * Изменяет параметры ученика
-     * или бросает исключение PersonNotFoundException
-     */
     @PutMapping()
+    @ApiOperation(
+            value = "Обновить существующего ученика",
+            notes = "Изменяет параметры ученика или бросает исключение PersonNotFoundException",
+            response = Pupil.class
+    )
     public ResponseEntity<Pupil> updatePupil(@RequestBody @Valid Pupil pupil) throws PersonNotFoundException {
         Long id = pupil.getId();
         Pupil oldPupil = service.getPupilById(id);
-        if(oldPupil == null) {
-            throw new PersonNotFoundException(PERSON,id);
+        if (oldPupil == null) {
+            throw new PersonNotFoundException(PERSON, id);
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -80,15 +92,18 @@ public class PupilRestController {
                 .body(service.editPupil(pupil));
     }
 
-    /**
-     * Удаляет ученика с заданым id
-     * или бросает исключение PersonNotFoundException
-     */
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deletePupil(@PathVariable Long id) throws PersonNotFoundException {
+    @DeleteMapping("/{id}")
+    @ApiOperation(
+            value = "Удалить существущего ученка по ID",
+            notes = "Удаляет ученика с заданым id или бросает исключение PersonNotFoundException",
+            response = String.class
+    )
+    public ResponseEntity<String> deletePupil(
+            @ApiParam(value = "Идентификатор ученика, которого нужно найти", required = true)
+            @PathVariable Long id) throws PersonNotFoundException {
         Pupil pupil = service.getPupilById(id);
-        if(pupil == null) {
-            throw new PersonNotFoundException(PERSON,id);
+        if (pupil == null) {
+            throw new PersonNotFoundException(PERSON, id);
         }
         service.deletePupilById(id);
         return ResponseEntity
