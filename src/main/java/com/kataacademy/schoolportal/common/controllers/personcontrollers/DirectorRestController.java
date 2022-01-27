@@ -1,8 +1,10 @@
 package com.kataacademy.schoolportal.common.controllers.personcontrollers;
 
+import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
 import com.kataacademy.schoolportal.common.models.persons.Director;
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
-import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +27,13 @@ public class DirectorRestController {
     @Autowired
     private DirectorService service;
 
-    /**
-     * Возвращает список всех директоров
-     */
     @GetMapping("")
+    @ApiOperation(
+            value = "Вернуть список всех директоров",
+            notes = "Возвращает список директоров с уникальными параметрами",
+            response = Director.class,
+            responseContainer = "List"
+    )
     public ResponseEntity<List<Director>> getAllDirectors() {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -36,14 +41,17 @@ public class DirectorRestController {
                 .body(service.getAllDirectors());
     }
 
-    /**
-     * Возвращает директора с заданым идентификатором
-     * или бросает исключение PersonNotFoundException
-     */
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Director> getDirectorById(@PathVariable Long id) throws PersonNotFoundException {
+    @ApiOperation(
+            value = "Вернуть директора с заданным ID",
+            notes = "Возвращает директора с заданым идентификатором или бросает исключение PersonNotFoundException",
+            response = Director.class
+    )
+    public ResponseEntity<Director> getDirectorById(
+            @ApiParam(value = "Идентификатор директора, которого нужно найти", required = true)
+            @PathVariable Long id) throws PersonNotFoundException {
         Director director = service.getDirectorById(id);
-        if(director == null) {
+        if (director == null) {
             throw new PersonNotFoundException(PERSON, id);
         }
         return ResponseEntity
@@ -52,10 +60,12 @@ public class DirectorRestController {
                 .body(director);
     }
 
-    /**
-     * Создает нового директора
-     */
     @PostMapping("")
+    @ApiOperation(
+            value = "Создать нового директора",
+            notes = "Создает директора с заданными параметрами",
+            response = Director.class
+    )
     public ResponseEntity<Director> createDirector(@RequestBody @Valid Director director) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -63,15 +73,16 @@ public class DirectorRestController {
                 .body(service.saveDirector(director));
     }
 
-    /**
-     * Изменяет параметры директора
-     * или бросает исключение PersonNotFoundException
-     */
     @PutMapping("")
+    @ApiOperation(
+            value = "Обновить существующего директора",
+            notes = "Изменяет параметры директора или бросает исключение PersonNotFoundException",
+            response = Director.class
+    )
     public ResponseEntity<Director> updateDirector(@RequestBody @Valid Director director) throws PersonNotFoundException {
         Long id = director.getId();
         Director oldDirector = service.getDirectorById(id);
-        if(oldDirector == null) {
+        if (oldDirector == null) {
             throw new PersonNotFoundException(PERSON, id);
         }
         return ResponseEntity
@@ -80,14 +91,17 @@ public class DirectorRestController {
                 .body(service.editDirector(director));
     }
 
-    /**
-     * Удаляет директора с заданым id
-     * или бросает исключение PersonNotFoundException
-     */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteDirector(@PathVariable Long id) throws PersonNotFoundException {
+    @ApiOperation(
+            value = "Удалить существущего директора по ID",
+            notes = "Удаляет директора с заданым id или бросает исключение PersonNotFoundException",
+            response = String.class
+    )
+    public ResponseEntity<String> deleteDirector(
+            @ApiParam(value = "Идентификатор директора, которого нужно найти", required = true)
+            @PathVariable Long id) throws PersonNotFoundException {
         Director director = service.getDirectorById(id);
-        if(director == null) {
+        if (director == null) {
             throw new PersonNotFoundException(PERSON, id);
         }
         service.deleteDirectorById(id);

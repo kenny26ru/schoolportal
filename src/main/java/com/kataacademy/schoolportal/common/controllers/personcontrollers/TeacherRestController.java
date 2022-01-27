@@ -1,8 +1,11 @@
 package com.kataacademy.schoolportal.common.controllers.personcontrollers;
 
+import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import com.kataacademy.schoolportal.common.services.persons.TeacherService;
 import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +28,13 @@ public class TeacherRestController {
     @Autowired
     private TeacherService service;
 
-    /**
-     * Возвращает список всех учителей
-     */
     @GetMapping("")
+    @ApiOperation(
+            value = "Вернуть список всех учителей",
+            notes = "Возвращает список учителей с уникальными параметрами",
+            response = Teacher.class,
+            responseContainer = "List"
+    )
     public ResponseEntity<List<Teacher>> getAllTeachers() {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -36,12 +42,15 @@ public class TeacherRestController {
                 .body(service.getAllTeachers());
     }
 
-    /**
-     * Возвращает учителя с заданым идентификатором
-     * или бросает исключение PersonNotFoundException
-     */
     @GetMapping("/{id}")
-    public ResponseEntity<Teacher> getTeacherById(@PathVariable Long id) throws PersonNotFoundException{
+    @ApiOperation(
+            value = "Вернуть учителя с заданным ID",
+            notes = "Возвращает учителя с заданым идентификатором или бросает исключение PersonNotFoundException",
+            response = Teacher.class
+    )
+    public ResponseEntity<Teacher> getTeacherById(
+            @ApiParam(value = "Идентификатор учителя, которого нужно найти", required = true)
+            @PathVariable Long id) throws PersonNotFoundException{
         Teacher teacher = service.getTeacherById(id);
         if (teacher == null) {
             throw new PersonNotFoundException(PERSON, id);
@@ -52,10 +61,12 @@ public class TeacherRestController {
                 .body(teacher);
     }
 
-    /**
-     * Создает нового учителя
-     */
     @PostMapping("")
+    @ApiOperation(
+            value = "Создать нового учителя",
+            notes = "Создает учителя с заданными параметрами",
+            response = Teacher.class
+    )
     public ResponseEntity<Teacher> createTeacher(@RequestBody @Valid Teacher teacher) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -63,11 +74,12 @@ public class TeacherRestController {
                 .body(service.saveTeacher(teacher));
     }
 
-    /**
-     * Изменяет параметры учителя
-     * или бросает исключение PersonNotFoundException
-     */
     @PutMapping("")
+    @ApiOperation(
+            value = "Обновить существующего учителя",
+            notes = "Изменяет параметры учителя или бросает исключение PersonNotFoundException",
+            response = Teacher.class
+    )
     public ResponseEntity<Teacher> updateTeacher(@RequestBody @Valid Teacher teacher) throws PersonNotFoundException {
         Long id = teacher.getId();
         Teacher oldTeacher = service.getTeacherById(id);
@@ -80,12 +92,15 @@ public class TeacherRestController {
                 .body(service.editTeacher(teacher));
     }
 
-    /**
-     * Удаляет учителя с заданым id
-     * или бросает исключение PersonNotFoundException
-     */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTeacherById(@PathVariable Long id) throws PersonNotFoundException {
+    @ApiOperation(
+            value = "Удалить существущего учителя по ID",
+            notes = "Удаляет учителя с заданым id или бросает исключение PersonNotFoundException",
+            response = String.class
+    )
+    public ResponseEntity<String> deleteTeacherById(
+            @ApiParam(value = "Идентификатор учителя, которого нужно найти", required = true)
+            @PathVariable Long id) throws PersonNotFoundException {
         Teacher teacher = service.getTeacherById(id);
         if (teacher == null) {
             throw new PersonNotFoundException(PERSON, id);
