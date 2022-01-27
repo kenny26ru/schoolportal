@@ -26,7 +26,7 @@ public class DayTimeTable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "day_time_lessons",
+            name = "day_time_lesson",
             joinColumns = @JoinColumn(name = "day_time_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
