@@ -33,7 +33,6 @@ public class HorizontalMainHeader extends Div {
         VerticalLayout loginModalLayout = LoginModal.createDialogLayout(loginModal);
         loginModal.add(loginModalLayout);
 
-
         HorizontalLayout headerLayout = new HorizontalLayout();
 
         Button homeButton = new Button(new Icon(VaadinIcon.OPEN_BOOK));
