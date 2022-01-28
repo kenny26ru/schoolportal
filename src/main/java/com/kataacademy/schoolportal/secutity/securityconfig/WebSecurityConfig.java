@@ -1,6 +1,8 @@
-package com.kataacademy.schoolportal.secutity;
+package com.kataacademy.schoolportal.secutity.securityconfig;
 
 import com.kataacademy.schoolportal.secutity.enums.ERole;
+
+import com.kataacademy.schoolportal.secutity.handlers.AuthSuccessHandler;
 import com.kataacademy.schoolportal.secutity.jwt.AuthEntryPointJWT;
 import com.kataacademy.schoolportal.secutity.jwt.AuthTokenFilter;
 import com.kataacademy.schoolportal.secutity.services.UserService;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,21 +22,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     private AuthEntryPointJWT unauthorizedHandler;
 
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
-    }
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter() {
+        return new AuthTokenFilter();
     }
 
     @Bean
@@ -51,15 +58,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                .antMatchers("/", "/login", "/logout", "/school-project/home", "/VAADIN/**").permitAll()
-                .antMatchers("/school-project/director/**").hasAuthority(String.valueOf(ERole.ROLE_DIRECTOR))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests()
+                .antMatchers("/login", "/login**", "/login/**", "/VAADIN/**", "/HEARTBEAT/**",
+                        "/UIDL/**", "/resources/**", "/", "/logout", "/manifest.json", "/icons/**",
+                        "/images/**", "/registration", "/registration/**", "/grid",
+                        "/school-project/home", "/ws/**", "/vaadinServlet/**", "/signin", "/signup").permitAll()
+                .antMatchers("/school-project/director/**").hasAuthority(ERole.ROLE_DIRECTOR.name())
                 .antMatchers("/school-project/head-teacher/**").hasAuthority(String.valueOf(ERole.ROLE_HEAD_TEACHER))
                 .antMatchers("/school-project/teacher/**").hasAuthority(String.valueOf(ERole.ROLE_TEACHER))
                 .antMatchers("/school-project/pupil/**").hasAuthority(String.valueOf(ERole.ROLE_PUPIL))
-                .anyRequest().authenticated();
-
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login").successHandler(authSuccessHandler).permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/login").permitAll();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
+

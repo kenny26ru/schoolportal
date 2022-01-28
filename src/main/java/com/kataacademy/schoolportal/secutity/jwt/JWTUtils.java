@@ -1,20 +1,23 @@
 package com.kataacademy.schoolportal.secutity.jwt;
 
-import com.kataacademy.schoolportal.secutity.models.User;
+import com.kataacademy.schoolportal.secutity.models.Role;
+import com.kataacademy.schoolportal.secutity.services.UserService;
 import io.jsonwebtoken.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class JWTUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(JWTUtils.class);
 
     @Value("${app.jwtSecret}")
     private String jwtSecret;
@@ -22,37 +25,52 @@ public class JWTUtils {
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(Authentication authentication) {
+    @Autowired
+    private UserService userService;
 
-        User userPrincipal = (User) authentication.getPrincipal();
+    public String generateTokenFromUsernameAndRole(String username, Set<Role> roles) {
+
+        Claims claims = Jwts.claims().setSubject(username);
+        claims.put("roles", getRoleNames(roles));
+
+        Date now = new Date();
+        Date valid = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(valid)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
+    }
+
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = this.userService.loadUserByUsername(getUserNameFromJwtToken(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateJwtToken(String authToken) {
+    public boolean validateJwtToken(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jws<Claims> claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            if (claims.getBody().getExpiration().before(new Date())) {
+                return false;
+            }
             return true;
-        } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
-        } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
-        } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new JwtException("Токен протух");
         }
-        return false;
+    }
+
+    private List<String> getRoleNames(Set<Role> userRoles) {
+        List<String> result = new ArrayList<>();
+
+        userRoles.forEach(role -> {
+            result.add(role.getAuthority());
+        });
+        return result;
     }
 }
