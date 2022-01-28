@@ -3,17 +3,21 @@ package com.kataacademy.schoolportal.common.queue;
 
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import com.kataacademy.schoolportal.common.queue.exception.QueueException;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+@Getter
 public class PupilQueue {
 
-    private static final BlockingQueue<Map<Integer, Pupil>> res = new LinkedBlockingQueue<>();
-    private static final Map<Integer, Integer> valid = new HashMap<>();
+    private final BlockingQueue<Map<Integer, Pupil>> queue = new LinkedBlockingQueue<>();
+    private static final Map<Integer, Integer> valid = new ConcurrentHashMap<>();
+
 
     static {
         valid.put(1, 0);
@@ -27,6 +31,7 @@ public class PupilQueue {
         valid.put(9, 0);
         valid.put(10, 0);
         valid.put(11, 0);
+
     }
 
     public void putPupilInAQueue(Pupil pupil) {
@@ -36,11 +41,14 @@ public class PupilQueue {
             throw new QueueException.BeyondAgeLimitsException();
         }
         map.put(classNumber, pupil);
+
         if (valid.get(classNumber) == 30) {
             throw new QueueException.NoPlaceInClassException(classNumber);
-        }
-        valid.merge(classNumber, valid.get(classNumber), (a, b) -> b + 1 );
-        res.add(map);
-    }
 
+        } else {
+            valid.computeIfPresent(classNumber, (a, b) -> b + 1);
+        }
+        queue.add(map);
+
+    }
 }
