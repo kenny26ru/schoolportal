@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.secutity.handlers;
 
+import com.kataacademy.schoolportal.secutity.enums.ERole;
 import com.kataacademy.schoolportal.secutity.models.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -19,13 +20,13 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
         String redirectURL = request.getContextPath();
 
-        if (userDetails.hasRole("DIRECTOR")) {
+        if (userDetails.hasRole(String.valueOf(ERole.ROLE_DIRECTOR))) {
             redirectURL = "director";
-        } else if (userDetails.hasRole("HEAD_TEACHER")) {
+        } else if (userDetails.hasRole(String.valueOf(ERole.ROLE_HEAD_TEACHER))) {
             redirectURL = "head-teacher";
-        } else if (userDetails.hasRole("TEACHER")) {
+        } else if (userDetails.hasRole(String.valueOf(ERole.ROLE_TEACHER))) {
             redirectURL = "teacher";
-        } else if (userDetails.hasRole("PUPIL")) {
+        } else if (userDetails.hasRole(String.valueOf(ERole.ROLE_PUPIL))) {
             redirectURL = "pupil";
         }
         response.sendRedirect(redirectURL);

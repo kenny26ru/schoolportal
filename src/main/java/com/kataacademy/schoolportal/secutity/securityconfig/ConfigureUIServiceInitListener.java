@@ -1,4 +1,15 @@
-package com.kataacademy.schoolportal.secutity.securityconfig;
+
+
+
+
+//Конфиги Ваадина, понадобятся в дальнейшем, пока от них больше геморроя, чем пользы
+//
+//
+//
+
+
+
+/*package com.kataacademy.schoolportal.secutity.securityconfig;
 
 import com.kataacademy.schoolportal.views.LoginView;
 import com.vaadin.flow.component.UI;
@@ -19,9 +30,9 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
     }
 
     private void beforeEnter(BeforeEnterEvent event) {
-        if (!LoginView.class.equals(event.getNavigationTarget()) // (3)
-                && !SecurityUtils.isUserLoggedIn()) { // (4)
-            event.rerouteTo(LoginView.class); // (5)
+        if (!LoginView.class.equals(event.getNavigationTarget())
+                && !SecurityUtils.isUserLoggedIn()) {
+            event.rerouteTo(LoginView.class);
         }
     }
-}
+}*/

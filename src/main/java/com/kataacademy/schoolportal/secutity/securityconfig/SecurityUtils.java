@@ -1,4 +1,15 @@
-package com.kataacademy.schoolportal.secutity.securityconfig;
+
+
+
+
+
+//Конфиги Ваадина, понадобятся в дальнейшем, пока от них больше геморроя, чем пользы
+//
+//
+//
+//
+
+/*package com.kataacademy.schoolportal.secutity.securityconfig;
 
 import com.vaadin.flow.server.ServletHelper;
 import com.vaadin.flow.shared.ApplicationConstants;
@@ -27,4 +38,4 @@ public final class SecurityUtils {
                 && !(authentication instanceof AnonymousAuthenticationToken)
                 && authentication.isAuthenticated();
     }
-}
+}*/

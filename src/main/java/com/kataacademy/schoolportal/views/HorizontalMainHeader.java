@@ -12,11 +12,12 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.Route;
 
 @CssImport("./styles/header-layout-styles.css")
 @HtmlImport("./src/header-layout-src.html")
 public class HorizontalMainHeader extends Div {
+
+    SignUpModal signUpModal = new SignUpModal();
 
     public HorizontalMainHeader() {
     }
@@ -25,12 +26,12 @@ public class HorizontalMainHeader extends Div {
 
         Dialog registrationModal = new Dialog();
         registrationModal.getElement().setAttribute("aria-label", "Регистрация нового пользователя");
-        VerticalLayout registrationModalLayout = RegistrationModal.createDialogLayout(registrationModal);
+        VerticalLayout registrationModalLayout = signUpModal.createDialogLayout(registrationModal);
         registrationModal.add(registrationModalLayout);
 
         Dialog loginModal = new Dialog();
         loginModal.getElement().setAttribute("aria-label", "Войти");
-        VerticalLayout loginModalLayout = LoginModal.createDialogLayout(loginModal);
+        VerticalLayout loginModalLayout = SignInModal.createDialogLayout(loginModal);
         loginModal.add(loginModalLayout);
 
         HorizontalLayout headerLayout = new HorizontalLayout();
