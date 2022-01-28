@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,6 +36,14 @@ public class Lesson {
 
     @Column(name = "number_classroom")
     private Integer numberClassroom;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "lesson_teacher",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+    )
+    private Set<Teacher> teachers;
 
     public Lesson(String subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
         this.subjectName = subjectName;
