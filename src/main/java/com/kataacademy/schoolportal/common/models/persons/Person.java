@@ -19,11 +19,11 @@ import java.time.LocalDate;
 @MappedSuperclass
 public abstract class Person {
 
-    @SizeNotBlank(min = 4, message = "Поле firstName минимум 4 символа")
+    @SizeNotBlank(min = 2, message = "Поле firstName минимум 2 символа")
     private String firstName;
-    @SizeNotBlank(min = 4, message = "Поле secondName минимум 4 символа")
+    @SizeNotBlank(min = 2, message = "Поле secondName минимум 2 символа")
     private String secondName;
-    @SizeNotBlank(min = 4, message = "Поле lastName минимум 4 символа")
+    @SizeNotBlank(min = 2, message = "Поле lastName минимум 2 символа")
     private String lastName;
     @Pattern(regexp="[МЖ]", message = "Поле sex 1 символ: М или Ж")
     private String sex;
