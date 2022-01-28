@@ -1,15 +1,17 @@
 package com.kataacademy.schoolportal.common.services.persons;
 
-
 import com.kataacademy.schoolportal.common.models.persons.Director;
 
+import java.util.List;
+
 public interface DirectorService {
+    public List<Director> getAllDirectors();
 
-    Director getDirectorById(Long id);
+    public Director getDirectorById(Long id);
 
-    void saveDirector(Director director);
+    public Director saveDirector(Director director);
 
-    void editDirector(Director director);
+    public Director editDirector(Director director);
 
-    void deleteDirectorById(Long id);
+    public void deleteDirectorById(Long id);
 }

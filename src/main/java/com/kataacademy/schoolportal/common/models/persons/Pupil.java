@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
+import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +17,22 @@ public class Pupil extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
+
+    /*
+     * Аннотация @JoinColumn нужна для настройки имени столбца в таблице pupils,
+     * который сопоставляется с первичным ключом в таблице forms.
+     * */
+    @ManyToOne
+    @JoinColumn(name="form_name", referencedColumnName="formName", nullable = false)
+    private Form form;
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);
+    }
+
+    public Pupil(Long id, String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
+        super(firstName, secondName, lastName, sex, birthday);
+        this.id = id;
     }
 }
