@@ -2,6 +2,7 @@ package com.kataacademy.schoolportal.common.queue;
 
 
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
+import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
 import com.kataacademy.schoolportal.common.queue.exception.QueueException;
 import lombok.Getter;
 
@@ -51,4 +52,22 @@ public class PupilQueue {
         queue.add(map);
 
     }
+
+    public Pupil getPupilFromQueue() {
+
+        Map<Integer, Pupil> pupilMap = queue.poll();
+        if (pupilMap == null) {
+            throw new QueueException.NoPupilInQueueException();
+        }
+
+        Integer key = pupilMap.keySet().iterator().next();
+        Pupil pupil = pupilMap.get(key);
+
+        Form form = new Form();
+        form.setNumber(key.byteValue());
+
+        pupil.setForm(form);
+        return pupil;
+    }
+
 }
