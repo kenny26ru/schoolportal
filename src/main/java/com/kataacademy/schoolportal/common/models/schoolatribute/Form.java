@@ -34,4 +34,8 @@ public class Form {
 
     private String profile;
 
+    @ManyToOne
+    @JoinColumn(name="school_id", referencedColumnName="id", nullable = false)
+    private School school;
+
 }

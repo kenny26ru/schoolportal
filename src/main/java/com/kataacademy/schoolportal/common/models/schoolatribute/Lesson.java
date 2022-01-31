@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.kataacademy.schoolportal.common.models.enums.SchoolSubjects;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Lesson {
     private Integer id;
 
     @Column(name = "subject_name")
-    private String subjectName;
+    private SchoolSubjects subjectName;
 
     @Column(name = "date_lesson")
     private LocalDate dateLesson;
@@ -45,7 +46,7 @@ public class Lesson {
     )
     private Set<Teacher> teachers;
 
-    public Lesson(String subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
+    public Lesson(SchoolSubjects subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
         this.subjectName = subjectName;
         this.dateLesson = dateLesson;
         this.timeStart = timeStart;
