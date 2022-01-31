@@ -24,6 +24,7 @@ public class Lesson {
     private Integer id;
 
     @Column(name = "subject_name")
+    @Enumerated(EnumType.STRING)
     private SchoolSubjects subjectName;
 
     @Column(name = "date_lesson")

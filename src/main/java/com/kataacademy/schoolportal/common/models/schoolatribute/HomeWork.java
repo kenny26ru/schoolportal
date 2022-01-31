@@ -1,6 +1,7 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
 
+import com.kataacademy.schoolportal.common.models.enums.SchoolSubjects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +22,8 @@ public class HomeWork {
     private Long id;
 
     @Column(name = "subject_name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private SchoolSubjects name;
 
     @Column(name = "date")
     private LocalDate date;
@@ -29,7 +31,7 @@ public class HomeWork {
     @Column(name = "description")
     private String description;
 
-    public HomeWork(String name, LocalDate date, String description) {
+    public HomeWork(SchoolSubjects name, LocalDate date, String description) {
         this.date = date;
         this.name = name;
         this.description = description;
