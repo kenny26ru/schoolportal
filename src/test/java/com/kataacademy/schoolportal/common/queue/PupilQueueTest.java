@@ -16,9 +16,9 @@ class PupilQueueTest {
         PupilQueue expected = new PupilQueue();
         List<Pupil> pupils = new ArrayList<>();
         List<Pupil> pupils1 = new ArrayList<>();
-        for (int i  = 0; i <= 31; i++) {
-            Pupil pupil = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(10));
-            Pupil pupil1 = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(9));
+        for (int i  = 0; i <= 122; i++) {
+            Pupil pupil = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(9));
+            Pupil pupil1 = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(10));
             pupils.add(pupil);
             pupils1.add(pupil1);
         }
@@ -38,13 +38,13 @@ class PupilQueueTest {
             myThead3.join();
         } catch (InterruptedException ignored) {
         }
-        Assertions.assertEquals(60, expected.getQueue().size());
+        Assertions.assertEquals(240, expected.getQueue().size());
     }
 
     @Test
     void getNoPlaceInClassException() {
         PupilQueue queue = new PupilQueue();
-        for (int i  = 0; i <= 30; i++) {
+        for (int i  = 0; i <= 123; i++) {
             Pupil pupil = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(11));
             try {
                 queue.putPupilInAQueue(pupil);
@@ -52,7 +52,7 @@ class PupilQueueTest {
                 Assertions.assertEquals(QueueException.NoPlaceInClassException.class, exception.getClass());
             }
         }
-        Assertions.assertEquals(30, queue.getQueue().size());
+        Assertions.assertEquals(120, queue.getQueue().size());
     }
 
     @Test

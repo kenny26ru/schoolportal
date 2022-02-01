@@ -43,7 +43,7 @@ public class PupilQueue {
         }
         map.put(classNumber, pupil);
 
-        if (valid.get(classNumber) == 30) {
+        if (valid.get(classNumber) == 120) {
             throw new QueueException.NoPlaceInClassException(classNumber);
 
         } else {
