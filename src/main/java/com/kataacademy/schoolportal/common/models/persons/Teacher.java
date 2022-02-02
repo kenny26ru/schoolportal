@@ -17,7 +17,7 @@ public class Teacher extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     /*
      * CascadeType - это то, что произойдет с подчиненной таблицей, при действиях с главной.
@@ -32,6 +32,11 @@ public class Teacher extends Person {
 
     public Teacher(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);
+    }
+
+    public Teacher(Long id, String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
+        super(firstName, secondName, lastName, sex, birthday);
+        this.id = id;
     }
 
 }

@@ -7,11 +7,11 @@ import java.util.List;
 public interface PupilService {
     public List<Pupil> getAllPupils();
 
-    public Pupil getPupilById(long id);
+    public Pupil getPupilById(Long id);
 
-    public void savePupil(Pupil pupil);
+    public Pupil savePupil(Pupil pupil);
 
-    public void editPupil(Pupil pupil);
+    public Pupil editPupil(Pupil pupil);
 
-    public void deletePupil(long id);
+    public void deletePupilById(Long id);
 }
