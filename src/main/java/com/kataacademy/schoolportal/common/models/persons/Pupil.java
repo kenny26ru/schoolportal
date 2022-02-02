@@ -7,15 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 
 @Entity
 @Table(name = "pupils")
-public class Pupil extends Person {
+public class Pupil extends Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +28,7 @@ public class Pupil extends Person {
      * который сопоставляется с первичным ключом в таблице forms.
      * */
     @ManyToOne
-    @JoinColumn(name="form_name", referencedColumnName="formName", nullable = false)
+    @JoinColumn(name = "form_name", referencedColumnName = "formName", nullable = false)
     private Form form;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -36,7 +38,6 @@ public class Pupil extends Person {
             inverseJoinColumns = @JoinColumn(name = "subject_mark_id")
     )
     private Set<SubjectMarks> subjectMarks;
-
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);

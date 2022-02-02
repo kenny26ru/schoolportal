@@ -7,14 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 
 @Entity
 @Table(name = "forms")
-public class Form {
+public class Form implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,7 @@ public class Form {
     private String formName;
 
     @OneToMany(mappedBy = "form")
-    private Set<Pupil> pupilSet;
+    private Set<Pupil> pupilSet = new HashSet<>();
 
     @OneToOne(mappedBy = "teacherForm")
     private Teacher formTeacher;
@@ -35,7 +38,7 @@ public class Form {
     private String profile;
 
     @ManyToOne
-    @JoinColumn(name="school_id", referencedColumnName="id", nullable = false)
+    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = false)
     private School school;
 
 }
