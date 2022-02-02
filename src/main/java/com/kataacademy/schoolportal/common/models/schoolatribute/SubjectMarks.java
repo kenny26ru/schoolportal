@@ -23,8 +23,15 @@ public class SubjectMarks {
     @Enumerated(EnumType.STRING)
     private SchoolSubjects schoolSubjects;
 
-    @OneToMany(mappedBy = "subjectMarks")
+    @OneToMany
+    @JoinColumn(name="subject_id", referencedColumnName="id")
     private Set<Mark> marks;
 
-
+    @Override
+    public String toString() {
+        return "SubjectMarks{" +
+                "schoolSubjects=" + schoolSubjects +
+                ", marks=" + marks +
+                '}';
+    }
 }
