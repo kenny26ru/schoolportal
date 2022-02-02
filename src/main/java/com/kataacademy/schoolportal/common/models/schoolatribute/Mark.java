@@ -27,7 +27,12 @@ public class Mark {
 
     private LocalDate dayTime;
 
-    @ManyToOne
-    @JoinColumn(name="subject_mark_id", referencedColumnName="id", nullable = false)
-    private SubjectMarks subjectMarks;
+    @Override
+    public String toString() {
+        return "Mark{" +
+                "id=" + id +
+                ", mark=" + mark +
+                ", dayTime=" + dayTime +
+                '}';
+    }
 }
