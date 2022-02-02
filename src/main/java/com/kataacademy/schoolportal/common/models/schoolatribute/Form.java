@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Getter @Setter
@@ -33,5 +36,8 @@ public class Form {
     private Teacher formTeacher;
 
     private String profile;
+
+    @OneToMany(mappedBy = "form")
+    private Set<DayTimeTable> timeTables;
 
 }

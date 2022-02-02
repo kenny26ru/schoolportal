@@ -32,6 +32,9 @@ public class DayTimeTable {
     )
     private Set<Lesson> lessons;
 
+    @ManyToOne
+    private Form form;
+
     public DayTimeTable(LocalDate dayTime, Set<Lesson> lessons) {
         this.dayTime = dayTime;
         this.lessons = lessons;
