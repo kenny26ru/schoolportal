@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -27,12 +26,6 @@ public class Pupil extends Person {
     @ManyToOne
     @JoinColumn(name="form_name", referencedColumnName="formName", nullable = false)
     private Form form;
-
-
-    @ManyToOne
-    private Teacher teacher;
-
-
 
     public Pupil(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);

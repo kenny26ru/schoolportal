@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
+import com.kataacademy.schoolportal.common.models.enums.Grade;
 import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,17 +32,12 @@ public class Teacher extends Person {
     @JoinColumn(name = "form_id", referencedColumnName = "id")
     private Form teacherForm;
 
-
-
-
-    @OneToMany(mappedBy = "teacher")
-    private Set<Pupil> pupilSet;
-
     @ManyToOne
     private Director director;
 
-
-
+    @Column(name = "grade")
+    @Enumerated(EnumType.STRING)
+    private Grade grade;
 
     public Teacher(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);

@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.kataacademy.schoolportal.common.models.persons.Director;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,10 @@ public class School {
 
     @Column(name = "address")
     private String address;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="director_id")
+    private Director director;
 
     public School() {
     }

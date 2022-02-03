@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.services.persons;
 
+import com.kataacademy.schoolportal.common.dto.DirectorDTO;
 import com.kataacademy.schoolportal.common.models.persons.Director;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface DirectorService {
     public Director editDirector(Director director);
 
     public void deleteDirectorById(Long id);
+
+    public DirectorDTO getTeachersByDirectorIdFrom5Grade(Long id);
 }

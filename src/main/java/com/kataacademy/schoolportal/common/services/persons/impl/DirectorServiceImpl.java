@@ -1,23 +1,24 @@
 package com.kataacademy.schoolportal.common.services.persons.impl;
 
 import com.kataacademy.schoolportal.common.dto.DirectorDTO;
-import com.kataacademy.schoolportal.common.mappers.DirectorMapper;
+import com.kataacademy.schoolportal.common.models.enums.Grade;
 import com.kataacademy.schoolportal.common.models.persons.Director;
+import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import com.kataacademy.schoolportal.common.repository.persons.DirectorRepository;
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
 
     private final DirectorRepository directorRepository;
-    private final DirectorMapper directorMapper;
 
-    public DirectorServiceImpl(DirectorRepository directorRepository, DirectorMapper directorMapper) {
+    public DirectorServiceImpl(DirectorRepository directorRepository) {
         this.directorRepository = directorRepository;
-        this.directorMapper = directorMapper;
     }
 
     @Override
@@ -45,18 +46,20 @@ public class DirectorServiceImpl implements DirectorService {
         directorRepository.deleteById(id);
     }
 
-    // DTO
-    public DirectorDTO createDirector(DirectorDTO directorDTO) {
-        Director director = new Director();
-        director.setFirstName(directorDTO.getFirstName());
-        director.setSecondName(directorDTO.getSecondName());
-        director.setLastName(directorDTO.getLastName());
-        director.setSex(directorDTO.getSex());
-        director.setBirthday(directorDTO.getBirthday());
+    // DirectorDTO (get Teachers)
+    @Override
+    public DirectorDTO getTeachersByDirectorIdFrom5Grade(Long id) {
+        DirectorDTO directorDTO = new DirectorDTO();
+        Set<Teacher> teacherSetForCurrentDirector = getDirectorById(id).getTeacherSet();
+        Set<Teacher> teacherSetFor5Grade = new HashSet<>();
 
-        director.setTeacherSet(directorDTO.getTeacherSet());
-
-        Director savedDirector = directorRepository.saveAndFlush(director);
-        return directorMapper.directorToDirectorDTO(savedDirector);
+        for (Teacher teacher : teacherSetForCurrentDirector) {
+            Grade grade = teacher.getGrade();
+            if (!grade.equals(Grade.ONE) && !grade.equals(Grade.TWO) && !grade.equals(Grade.THREE) && !grade.equals(Grade.FOUR)) {
+                teacherSetFor5Grade.add(teacher);
+            }
+            directorDTO.setTeacherSet(teacherSetFor5Grade);
+        }
+        return directorDTO;
     }
 }
