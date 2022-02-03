@@ -1,25 +1,35 @@
 package com.kataacademy.schoolportal.common.services.schooattribute;
 
+import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import com.kataacademy.schoolportal.common.models.schoolatribute.Lesson;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface LessonService {
 
-    public List<Lesson> getAllLessons();
+    List<Lesson> getAllLessons();
 
-    public List<Lesson> getLessonsAtDate(LocalDate dateLesson);
+    Lesson getLessonById(Long id);
 
-    public List<Lesson> getLessonsForTeacher(Long idTeacher);
+    Lesson saveLesson(Lesson lesson);
 
-    public List<Lesson> getLessonsForTeacherAtDate(Long idTeacher, LocalDate dateLesson);
+    Lesson editLesson(Lesson school);
 
-    public Lesson getLessonById(Long id);
+    void deleteLesson(Long id);
 
-    public Lesson saveLesson(Lesson lesson);
+    List<Lesson> getLessonsByDate(LocalDate date);
 
-    public Lesson editLesson(Lesson school);
+    List<Lesson> getLessonsByTeacher(Teacher teacher);
 
-    public void deleteLesson(Long id);
+    List<Lesson> getLessonsByTeacherAndDate(Teacher teacher, LocalDate date);
+
+    List<Lesson> getLessonsByTimeStart(LocalTime timeStart);
+
+    List<Lesson> getLessonsByTimeEnd(LocalTime timeEnd);
+
+    List<Lesson> getLessonsBySubjectName(String subjectName);
+
+    List<Lesson> getLessonsByNumberClassroom(Integer numberClassroom);
 }
