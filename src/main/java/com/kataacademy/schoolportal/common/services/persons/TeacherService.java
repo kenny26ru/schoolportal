@@ -5,9 +5,9 @@ import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import java.util.List;
 
 public interface TeacherService {
-    List<Teacher> getAllTeachers();
-    Teacher getTeacherById(Long id);
-    void saveTeacher(Teacher teacher);
-    void editTeacher(Teacher teacher);
+    public List<Teacher> getAllTeachers();
+    public Teacher getTeacherById(Long id);
+    public Teacher saveTeacher(Teacher teacher);
+    public Teacher editTeacher(Teacher teacher);
     void deleteTeacherById(Long id);
 }

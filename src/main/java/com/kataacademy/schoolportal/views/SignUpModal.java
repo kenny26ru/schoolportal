@@ -1,39 +1,52 @@
 package com.kataacademy.schoolportal.views;
 
+import com.kataacademy.schoolportal.secutity.controllers.SignUpController;
+import com.kataacademy.schoolportal.secutity.request.SignupRequest;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class LoginModal extends Div {
+public class SignUpModal {
 
-    public LoginModal() {
 
+    @Autowired
+    private SignUpController signUpController;
+
+    private SignupRequest signupRequest;
+
+    public SignUpModal() {
     }
 
-    public static VerticalLayout createDialogLayout(Dialog dialog) {
-        H2 headline = new H2("Авторизация");
+    public VerticalLayout createDialogLayout(Dialog dialog) {
+        H2 headline = new H2("Регистрация нового пользователя");
         headline.getStyle().set("margin", "var(--lumo-space-m) 0 0 0")
                 .set("font-size", "1.5em").set("font-weight", "bold");
 
-        TextField firstNameField = new TextField("Логин");
-        TextField passwordField = new TextField("Пароль");
-        VerticalLayout fieldLayout = new VerticalLayout(firstNameField,
-                passwordField);
+        TextField username = new TextField("Логин");
+        TextField password = new TextField("Пароль");
+        //TextField confirmPasswordField = new TextField("Подтвердите пароль");
+        VerticalLayout fieldLayout = new VerticalLayout(username,
+                password/*, confirmPasswordField*/);
         fieldLayout.setSpacing(false);
         fieldLayout.setPadding(false);
         fieldLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
 
         Button cancelButton = new Button("Назад", e -> dialog.close());
-        Button loginButton = new Button("Войти", e -> dialog.close());
-        loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        Button registrationButton = new Button("Регистрация", e -> {
+            signUpController.registerUser(
+                    new SignupRequest(username.getValue(), password.getValue())
+            );
+        });
+
+        registrationButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         HorizontalLayout buttonLayout = new HorizontalLayout(cancelButton,
-                loginButton);
+                registrationButton);
         buttonLayout
                 .setJustifyContentMode(FlexComponent.JustifyContentMode.END);
 
