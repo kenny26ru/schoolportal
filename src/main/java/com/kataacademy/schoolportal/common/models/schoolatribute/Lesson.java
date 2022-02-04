@@ -15,18 +15,18 @@ import java.util.Set;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "lesson")
+@Table(name = "lessons")
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "subject_name")
     private String subjectName;
 
     @Column(name = "date_lesson")
-    private LocalDate dateLesson;
+    private LocalDate date;
 
     @Column(name = "time_start")
     private LocalTime timeStart;
@@ -37,17 +37,13 @@ public class Lesson {
     @Column(name = "number_classroom")
     private Integer numberClassroom;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "lesson_teacher",
-            joinColumns = @JoinColumn(name = "lesson_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id")
-    )
-    private Set<Teacher> teachers;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "id")
+    private Teacher teacher;
 
-    public Lesson(String subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
+    public Lesson(String subjectName, LocalDate date, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
         this.subjectName = subjectName;
-        this.dateLesson = dateLesson;
+        this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.numberClassroom = numberClassroom;
@@ -58,10 +54,12 @@ public class Lesson {
         return "Lesson{" +
                 "id=" + id +
                 ", subjectName='" + subjectName + '\'' +
-                ", dateLesson=" + dateLesson +
+                ", date=" + date +
                 ", timeStart=" + timeStart +
                 ", timeEnd=" + timeEnd +
                 ", numberClassroom=" + numberClassroom +
+                ", teacher=" + teacher +
                 '}';
     }
+
 }
