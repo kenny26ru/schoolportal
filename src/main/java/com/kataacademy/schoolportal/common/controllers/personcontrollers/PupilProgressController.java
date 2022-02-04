@@ -32,7 +32,7 @@ public class PupilProgressController {
     @Autowired
     FormService formService;
 
-    @GetMapping(value = "/sc_Id={schoolId}/p_Id={pupilId}/performance/f_Id={formId}")
+    @GetMapping(value = "/p_Id={pupilId}/performance/f_Id={formId}")
     @ApiOperation(
             value = "Вернуть оценки ученика по его предметам",
             response = ProgressDto.class
