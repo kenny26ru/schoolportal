@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kataacademy.schoolportal.common.models.persons.validate.SizeNotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +29,8 @@ public abstract class Person {
     @Pattern(regexp="[МЖ]", message = "Поле sex 1 символ: М или Ж")
     private String sex;
     //TODO Валидация даты отложена до уточнения реализации
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 }
