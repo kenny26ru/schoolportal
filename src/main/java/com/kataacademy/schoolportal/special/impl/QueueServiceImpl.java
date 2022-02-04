@@ -30,24 +30,24 @@ public class QueueServiceImpl implements QueueService {
     public Pupil addPupilIntoForm() {
         Pupil pupil;
 
-        pupil = queue.getPupilFromQueue(); // получаем ученика
+        pupil = queue.getPupilFromQueue();
 
-        byte classNumber = pupil.getForm().getNumber(); // получаем намер класса из сохраненной в нем Form затычке, которая создается в методе доставания из очереди
-        int valid = 0; // переменная для валидации добавления ученика в класс
-        List<Form> forms = formService.getFormsByNumber(classNumber); // поем лист Form из бд по номеру класса
+        byte classNumber = pupil.getForm().getNumber();
+        int valid = 0;
+        List<Form> forms = formService.getFormsByNumber(classNumber);
 
-        for (Form form : forms) { // перебираем все формы из листа
-            if (form.getPupilSet().size() <= 30) { // ищем Form в которой еще есть место
-                pupil.setForm(form); // такого добаления хватит, чтобы в Form тоже добавлся этот ученик
-                pupilService.savePupil(pupil); // вот на этом моменте? (тут добавляем ученика в бд уже с нормальной формой)
-                formService.edit(form); // меняем форму в бд
-                valid++; // увиличиваем значение валидационной переменной
-                break; // выходим из цикла for так как ученик уже добавлен
+        for (Form form : forms) {
+            if (form.getPupilSet().size() <= 30) {
+                pupil.setForm(form);
+                pupilService.savePupil(pupil);
+                formService.edit(form);
+                valid++;
+                break;
             }
         }
-        if (valid == 0) { // если valid 0, значит ученик не добавился и надо выбросить ошибку, что все классы заполнены
+        if (valid == 0) {
             throw new FullClassException(classNumber);
         }
-        return pupil; // метод возвращает добавленного ученика
+        return pupil;
     }
 }

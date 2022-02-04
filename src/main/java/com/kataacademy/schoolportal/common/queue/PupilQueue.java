@@ -37,7 +37,7 @@ public class PupilQueue {
 
     }
 
-    public void putPupilInAQueue(Pupil pupil) {
+    public synchronized void putPupilInAQueue(Pupil pupil) {
         Map<Integer, Pupil> map = new HashMap<>();
         int classNumber = LocalDate.now().getYear() - pupil.getBirthday().getYear() - 7;
         if (classNumber > 11 || classNumber < 1) {
