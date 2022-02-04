@@ -23,6 +23,13 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
+    public List<Form> getFormsByNumber(Byte number) {
+
+        return repository.findAllByNumber(number);
+    }
+
+
+    @Override
     public Form getFormById(Long id) {
         return repository.findById(id).orElseThrow();
     }

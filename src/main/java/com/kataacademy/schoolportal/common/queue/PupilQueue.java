@@ -5,6 +5,7 @@ import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
 import com.kataacademy.schoolportal.common.queue.exception.QueueException;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Getter
+@Component
 public class PupilQueue {
 
     private final BlockingQueue<Map<Integer, Pupil>> queue = new LinkedBlockingQueue<>();

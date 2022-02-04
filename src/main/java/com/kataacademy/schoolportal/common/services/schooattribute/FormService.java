@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface FormService {
     List<Form> getAllForm();
+    List<Form> getFormsByNumber(Byte number);
     Form getFormById(Long id);
     void save(Form form);
     void edit(Form form);
