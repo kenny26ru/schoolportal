@@ -7,7 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -15,8 +17,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "marks")
-public class Mark {
-
+public class Mark implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -35,4 +37,5 @@ public class Mark {
                 ", dayTime=" + dayTime +
                 '}';
     }
+
 }
