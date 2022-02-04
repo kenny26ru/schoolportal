@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +15,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "subject_mark")
-public class SubjectMarks {
+public class SubjectMarks implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,15 +26,17 @@ public class SubjectMarks {
     @Enumerated(EnumType.STRING)
     private SchoolSubjects schoolSubjects;
 
-    @OneToMany
-    @JoinColumn(name="subject_id", referencedColumnName="id")
-    private Set<Mark> marks;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    private List<Mark> marks;
 
     @Override
     public String toString() {
         return "SubjectMarks{" +
-                "schoolSubjects=" + schoolSubjects +
-                ", marks=" + marks +
+                "id=" + id +
+                ", schoolSubjects=" + schoolSubjects +
+                ", marks=" + marks.toString() +
                 '}';
     }
+
 }
