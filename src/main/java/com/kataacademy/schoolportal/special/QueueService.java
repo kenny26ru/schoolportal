@@ -5,5 +5,8 @@ import com.kataacademy.schoolportal.common.models.persons.Pupil;
 
 
 public interface QueueService {
-    Pupil addPupilIntoForm();
+
+    Pupil getPupilFromQueue();
+
+    Pupil addPupilIntoForm(Pupil pupil);
 }

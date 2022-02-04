@@ -27,10 +27,12 @@ public class QueueServiceImpl implements QueueService {
 
 
     @Override
-    public Pupil addPupilIntoForm() {
-        Pupil pupil;
+    public Pupil getPupilFromQueue() {
+        return queue.getPupilFromQueue();
+    }
 
-        pupil = queue.getPupilFromQueue();
+    @Override
+    public Pupil addPupilIntoForm(Pupil pupil) {
 
         byte classNumber = pupil.getForm().getNumber();
         int valid = 0;
