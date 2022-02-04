@@ -22,7 +22,7 @@ import static com.kataacademy.schoolportal.common.controllers.personcontrollers.
 
 @RestController
 @RequestMapping("/api/school-portal")
-public class ProgressRestController {
+public class PupilProgressController {
     @Autowired
     SchoolService schoolService;
 
@@ -32,16 +32,15 @@ public class ProgressRestController {
     @Autowired
     FormService formService;
 
-    @GetMapping(value = "/sc_Id={sId}/p_Id={pId}/performance/f_Id={fId}")
+    @GetMapping(value = "/sc_Id={schoolId}/p_Id={pupilId}/performance/f_Id={formId}")
     @ApiOperation(
-            value = "Вернуть прогресс ученика",
+            value = "Вернуть оценки ученика по его предметам",
             response = ProgressDto.class
     )
-    public ResponseEntity<ProgressDto> getPupilById(
-            @PathVariable Long sId, @PathVariable Long pId, @PathVariable Long fId) throws PersonNotFoundException {
-        Pupil pupil = pupilService.getPupilById(pId);
-        School school = schoolService.getById(sId);
-        Form form = formService.getFormById(fId);
+    public ResponseEntity<ProgressDto> getPupilProgress(
+            @PathVariable Long pupilId, @PathVariable Long formId) throws PersonNotFoundException {
+        Pupil pupil = pupilService.getPupilById(pupilId);
+        Form form = formService.getFormById(formId);
 
         byte number = form.getNumber();
         List<SubjectMarks> subjectMarks = new ArrayList<>(pupil.getSubjectMarks());
