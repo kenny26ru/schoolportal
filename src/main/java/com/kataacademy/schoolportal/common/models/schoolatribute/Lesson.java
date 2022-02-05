@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.kataacademy.schoolportal.common.models.enums.SchoolSubjects;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,8 @@ public class Lesson {
     private Long id;
 
     @Column(name = "subject_name")
-    private String subjectName;
+    @Enumerated(EnumType.STRING)
+    private SchoolSubjects subjectName;
 
     @Column(name = "date_lesson")
     private LocalDate date;
@@ -41,7 +43,7 @@ public class Lesson {
     @JoinColumn(name = "id")
     private Teacher teacher;
 
-    public Lesson(String subjectName, LocalDate date, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
+    public Lesson(SchoolSubjects subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {
         this.subjectName = subjectName;
         this.date = date;
         this.timeStart = timeStart;
