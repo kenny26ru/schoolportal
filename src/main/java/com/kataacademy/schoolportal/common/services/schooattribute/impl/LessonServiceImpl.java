@@ -7,6 +7,7 @@ import com.kataacademy.schoolportal.common.services.schooattribute.LessonService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -55,6 +56,16 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lesson> getLessonsByTeacherAndDate(Teacher teacher, LocalDate date) {
         return repository.findLessonByTeacherAndDate(teacher, date);
+    }
+
+    @Override
+    public List<Lesson> getLessonsByTeacherAndDateIsBetween(Teacher teacher, LocalDate monday, LocalDate sunday) {
+        return repository.findLessonByTeacherAndDateIsBetween(teacher, monday, sunday);
+    }
+
+    @Override
+    public List<Lesson> getLessonsByTeacherAndDateBetween(Teacher teacher, LocalDate monday, LocalDate sunday) {
+        return repository.findLessonByTeacherAndDateBetween(teacher, monday, sunday);
     }
 
     @Override
