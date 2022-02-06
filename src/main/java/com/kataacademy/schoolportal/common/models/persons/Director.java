@@ -24,9 +24,9 @@ public class Director extends Person {
     @OneToMany(mappedBy = "director")
     private Set<Teacher> teacherSet;
 
-//    @OneToOne
-//    @JoinColumn(name="school_id")
-//    private School school;
+    @OneToOne
+    @JoinColumn(name="school_id")
+    private School school;
 
     public Director(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);

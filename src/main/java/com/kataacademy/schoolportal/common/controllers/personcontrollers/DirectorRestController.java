@@ -1,7 +1,6 @@
 package com.kataacademy.schoolportal.common.controllers.personcontrollers;
 
 import com.kataacademy.schoolportal.common.controllers.personcontrollers.exception.PersonNotFoundException;
-import com.kataacademy.schoolportal.common.dto.DirectorDTO;
 import com.kataacademy.schoolportal.common.models.persons.Director;
 import com.kataacademy.schoolportal.common.services.persons.DirectorService;
 import io.swagger.annotations.ApiOperation;
@@ -65,20 +64,20 @@ public class DirectorRestController {
                 .body(director);
     }
 
-    @GetMapping("/{id}/teachers")
-    @ApiOperation(
-            value = "Вернуть директора со списком учителей (только JSON список)",
-            notes = "Возвращает директора со списком учителей, начиная с 5го класса",
-            response = DirectorDTO.class
-    )
-    public ResponseEntity<DirectorDTO> getTeachersByDirectorIdFrom5Grade(
-            @ApiParam(value = "Идентификатор директора, учителей которого нужно вернуть (с 5го класса)", required = true)
-            @PathVariable Long id) throws PersonNotFoundException {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
-                .body(directorService.getTeachersByDirectorIdFrom5Grade(id));
-    }
+//    @GetMapping("/{id}/teachers")
+//    @ApiOperation(
+//            value = "Вернуть директора со списком учителей (только JSON список)",
+//            notes = "Возвращает директора со списком учителей, начиная с 5го класса",
+//            response = DirectorDTO.class
+//    )
+//    public ResponseEntity<DirectorDTO> getTeachersByDirectorIdFrom5Grade(
+//            @ApiParam(value = "Идентификатор директора, учителей которого нужно вернуть (с 5го класса)", required = true)
+//            @PathVariable Long id) throws PersonNotFoundException {
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .contentType(MediaType.valueOf(APPLICATION_JSON_UTF8))
+//                .body(directorService.getTeachersByDirectorIdFrom5Grade(id));
+//    }
 
     @PostMapping("")
     @ApiOperation(

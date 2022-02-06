@@ -1,10 +1,12 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
 import com.kataacademy.schoolportal.common.models.persons.Director;
+import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +30,9 @@ public class School {
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="director_id")
     private Director director;
+
+    @OneToMany(mappedBy = "school")
+    private List<Teacher> teacherList;
 
     public School() {
     }
