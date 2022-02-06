@@ -14,6 +14,12 @@ public class QueueException extends RuntimeException {
             super("Неподходящий возраст");
         }
     }
+
+    public static class NoPupilInQueueException extends RuntimeException {
+        public NoPupilInQueueException() {
+            super("В очереди больше нет учеников");
+        }
+    }
 }
 
 
