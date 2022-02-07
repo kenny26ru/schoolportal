@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class EmployeeRepository {
 
-    public List<Teacher> findAllTeachersBySchoolId(School school) {
+    public List<Teacher> findAllTeachersBySchool(School school) {
         return school.getTeacherList();
     }
 }

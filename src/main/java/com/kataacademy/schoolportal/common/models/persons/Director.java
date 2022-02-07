@@ -20,10 +20,6 @@ public class Director extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "director")
-    private Set<Teacher> teacherSet;
-
     @OneToOne
     @JoinColumn(name="school_id")
     private School school;

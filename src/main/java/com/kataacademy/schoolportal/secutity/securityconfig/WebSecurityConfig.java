@@ -75,5 +75,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/login").permitAll();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+/** Если нужно отключить Security - раскомментировать метод ниже (метод выше - наоборот, закомментировать) */
+//    @Override
+//    protected void configure(HttpSecurity security) throws Exception {
+//        security.httpBasic().disable();
+//    }
 }
 

@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kataacademy.schoolportal.common.models.persons.Director;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "school")
+@Table(name = "schools")
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,9 @@ public class School {
     @JoinColumn(name="director_id")
     private Director director;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "school")
+    @Column(name = "teacher_id")
     private List<Teacher> teacherList;
 
     public School() {

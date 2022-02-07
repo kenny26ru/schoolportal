@@ -18,7 +18,7 @@ public class EmployeeService {
     }
 
     public List<EmployeeDto> findAllTeachersBySchool(School school) {
-        return employeeRepository.findAllTeachersBySchoolId(school).stream()
+        return employeeRepository.findAllTeachersBySchool(school).stream()
                 .map(EmployeeMappingUtils::mapToEmployeeDto)
                 .collect(Collectors.toList());
     }
