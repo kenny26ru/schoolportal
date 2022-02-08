@@ -1,5 +1,6 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
+import com.kataacademy.schoolportal.common.models.persons.Pupil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,9 +20,9 @@ public class ProgressDto implements Serializable {
     byte number;
     List<SubjectMarks> subjectMarks;
 
-    public ProgressDto(byte number, List<SubjectMarks> subjectMarks) {
-        this.number = number;
-        this.subjectMarks = subjectMarks;
+    public ProgressDto(Form form, Pupil pupil) {
+        this.number = form.getNumber();
+        this.subjectMarks = pupil.getSubjectMarks();
 
     }
 
