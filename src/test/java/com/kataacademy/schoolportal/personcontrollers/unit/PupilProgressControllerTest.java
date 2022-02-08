@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 class PupilProgressControllerTest {
 
     private final ObjectMapper mapper = new ObjectMapper();
@@ -112,9 +111,9 @@ class PupilProgressControllerTest {
         ProgressDto progressForPupil1 = new ProgressDto(form1, pupil1);
         ProgressDto progressForPupil2 = new ProgressDto(form1, pupil2);
 
-        String jsonFromProgressPupil1 = "";
-
         mapper.registerModule(new JavaTimeModule());
+
+        String jsonFromProgressPupil1 = "";
         try {
             jsonFromProgressPupil1 = mapper.writeValueAsString(progressForPupil1)
                     .replace("\"", "")
@@ -122,9 +121,7 @@ class PupilProgressControllerTest {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
         Assertions.assertEquals(jsonString1, jsonFromProgressPupil1);
-
 
         String jsonFromProgressPupil2 = "";
         try {
@@ -134,7 +131,6 @@ class PupilProgressControllerTest {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
         Assertions.assertEquals(jsonString2, jsonFromProgressPupil2);
     }
 }
