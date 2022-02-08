@@ -25,7 +25,7 @@ public class SubjectMarks implements Serializable {
 
     @Column(name = "school_subject")
     @Enumerated(EnumType.STRING)
-    private SchoolSubjects schoolSubjects;
+    private SchoolSubjects schoolSubject;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
@@ -35,7 +35,7 @@ public class SubjectMarks implements Serializable {
     public String toString() {
         return "SubjectMarks{" +
                 "id=" + id +
-                ", schoolSubjects=" + schoolSubjects +
+                ", schoolSubjects=" + schoolSubject +
                 ", marks=" + marks.toString() +
                 '}';
     }
