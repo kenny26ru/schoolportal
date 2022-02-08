@@ -14,6 +14,8 @@ import com.kataacademy.schoolportal.common.models.schoolatribute.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +45,9 @@ class PupilProgressControllerTest {
     private final School school1 = new School("school1", 1000, "schoolAddress");
 
     private final Set<Pupil> pupilSet = new HashSet<>(List.of(pupil1, pupil2, pupil3, pupil4));
-    private final Form form1 = new Form(1L, (byte) 3, "formName1", "form1", pupilSet, formTeacher, Profile.CHEMICAL_BIOLOGICAL.toString(), school1);
+
+    Set<DayTimeTable> dayTimeTableSet = new HashSet<>();
+    private final Form form1 = new Form(1L, (byte) 3, "name", "formName", pupilSet, formTeacher, "CHEMICAL_BIOLOGICAL", dayTimeTableSet);
 
     private final List<Mark> listMarks1 = List.of(mark1, mark2);
     private final List<Mark> listMarks2 = List.of(mark3, mark4);
