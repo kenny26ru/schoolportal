@@ -40,3 +40,5 @@ public class Form {
 
     @OneToMany(mappedBy = "form")
     private Set<DayTimeTable> timeTables;
+    
+}
