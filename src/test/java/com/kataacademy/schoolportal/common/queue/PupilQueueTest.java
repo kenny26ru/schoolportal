@@ -5,20 +5,21 @@ import com.kataacademy.schoolportal.common.queue.exception.QueueException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 class PupilQueueTest {
+
+    PupilQueue expected = new PupilQueue();
 
     @Test
     void multithreadedTesting() {
-        PupilQueue expected = new PupilQueue();
         List<Pupil> pupils = new ArrayList<>();
         List<Pupil> pupils1 = new ArrayList<>();
-        for (int i  = 0; i <= 122; i++) {
+        for (int i = 0; i <= 122; i++) {
             Pupil pupil = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(9));
-            Pupil pupil1 = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(10));
+            Pupil pupil1 = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(8));
             pupils.add(pupil);
             pupils1.add(pupil1);
         }
@@ -43,21 +44,19 @@ class PupilQueueTest {
 
     @Test
     void getNoPlaceInClassException() {
-        PupilQueue queue = new PupilQueue();
-        for (int i  = 0; i <= 123; i++) {
+        for (int i = 0; i <= 123; i++) {
             Pupil pupil = new Pupil("asd" + i, "asdaf" + i, "asdfgha" + i, "M", LocalDate.now().minusYears(11));
             try {
-                queue.putPupilInAQueue(pupil);
+                expected.putPupilInAQueue(pupil);
             } catch (QueueException.NoPlaceInClassException | QueueException.BeyondAgeLimitsException exception) {
                 Assertions.assertEquals(QueueException.NoPlaceInClassException.class, exception.getClass());
             }
         }
-        Assertions.assertEquals(120, queue.getQueue().size());
+        Assertions.assertEquals(120, expected.getQueue().size());
     }
 
     @Test
     void getBeyondAgeLimitsException() {
-        PupilQueue expected = new PupilQueue();
         Pupil pupil = new Pupil("asd", "asdaf", "asdfgha", "M", LocalDate.now().minusYears(7));
         try {
             expected.putPupilInAQueue(pupil);
@@ -81,14 +80,11 @@ class PupilQueueTest {
         }
 
 
-
-
         @Override
         public void run() {
             for (Pupil pupil : pupils) {
                 try {
                     expected.putPupilInAQueue(pupil);
-                    a++;
                 } catch (QueueException.NoPlaceInClassException ignored) {
                 }
             }
