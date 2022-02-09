@@ -1,7 +1,9 @@
 package com.kataacademy.schoolportal.common.services.persons;
 
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
+import com.kataacademy.schoolportal.common.models.schoolatribute.DayTimeTable;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PupilService {
@@ -14,4 +16,5 @@ public interface PupilService {
     public Pupil editPupil(Pupil pupil);
 
     public void deletePupilById(Long id);
+
 }

@@ -1,11 +1,13 @@
 package com.kataacademy.schoolportal.common.services.persons.impl;
 
 import com.kataacademy.schoolportal.common.models.persons.Pupil;
+import com.kataacademy.schoolportal.common.models.schoolatribute.DayTimeTable;
 import com.kataacademy.schoolportal.common.repository.persons.PupilRepository;
 import com.kataacademy.schoolportal.common.services.persons.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -38,4 +40,5 @@ public class PupilServiceImpl implements PupilService {
     public void deletePupilById(Long id) {
         pupilRepository.deleteById(id);
     }
+
 }
