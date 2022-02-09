@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,6 +24,9 @@ public class School {
 
     @Column(name = "address")
     private String address;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "school")
+    private Set<Form> forms;
 
     public School() {
     }
