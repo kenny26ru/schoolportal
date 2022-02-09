@@ -25,7 +25,7 @@ public class TimeTableForTeacherImpl implements TimeTableForTeacher {
     public DayTimeTable getDayTimeTable(Teacher teacher, LocalDate date) {
         DayTimeTable table = new DayTimeTable();
         table.setDayTime(date);
-        table.setLessons(new HashSet<>(service.getLessonsByTeacherAndDate(teacher, date)));
+        table.setLessons(service.getLessonsByTeacherAndDate(teacher, date));
         return table;
     }
 
@@ -41,7 +41,7 @@ public class TimeTableForTeacherImpl implements TimeTableForTeacher {
                         lessons
                         .stream()
                         .filter(x -> x.getDate().isEqual(finalMonday))
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toList())
                     ));
             monday = monday.plusDays(1);
         } while (monday.getDayOfWeek() != DayOfWeek.MONDAY);

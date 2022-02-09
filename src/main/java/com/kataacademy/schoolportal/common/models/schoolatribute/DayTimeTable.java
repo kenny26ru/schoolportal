@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,9 +30,9 @@ public class DayTimeTable {
             joinColumns = @JoinColumn(name = "day_time_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
-    private Set<Lesson> lessons;
+    private List<Lesson> lessons;
 
-    public DayTimeTable(LocalDate dayTime, Set<Lesson> lessons) {
+    public DayTimeTable(LocalDate dayTime, List<Lesson> lessons) {
         this.dayTime = dayTime;
         this.lessons = lessons;
     }

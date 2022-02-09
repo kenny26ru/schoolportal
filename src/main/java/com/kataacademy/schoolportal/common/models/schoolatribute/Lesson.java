@@ -1,6 +1,7 @@
 package com.kataacademy.schoolportal.common.models.schoolatribute;
 
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table(name = "lessons")
