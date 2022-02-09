@@ -3,6 +3,7 @@ package com.kataacademy.schoolportal.common.services.persons.impl;
 import com.kataacademy.schoolportal.common.models.persons.Teacher;
 import com.kataacademy.schoolportal.common.repository.persons.TeacherRepository;
 import com.kataacademy.schoolportal.common.services.persons.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,11 +11,14 @@ import java.util.List;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
-    private final TeacherRepository teacherRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
-        this.teacherRepository = teacherRepository;
-    }
+//    private final TeacherRepository teacherRepository;
+//
+//    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+//        this.teacherRepository = teacherRepository;
+//    }
 
     @Override
     public List<Teacher> getAllTeachers() {
