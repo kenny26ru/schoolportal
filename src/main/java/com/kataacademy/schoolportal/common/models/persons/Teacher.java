@@ -1,12 +1,15 @@
 package com.kataacademy.schoolportal.common.models.persons;
 
+import com.kataacademy.schoolportal.common.models.enums.Grade;
 import com.kataacademy.schoolportal.common.models.schoolatribute.Form;
+import com.kataacademy.schoolportal.common.models.schoolatribute.School;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -29,6 +32,13 @@ public class Teacher extends Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "form_id", referencedColumnName = "id")
     private Form teacherForm;
+
+    @Column(name = "grade")
+    @Enumerated(EnumType.STRING)
+    private Grade grade;
+
+    @ManyToOne
+    private School school;
 
     public Teacher(String firstName, String secondName, String lastName, String sex, LocalDate birthday) {
         super(firstName, secondName, lastName, sex, birthday);

@@ -40,4 +40,21 @@ public class DirectorServiceImpl implements DirectorService {
     public void deleteDirectorById(Long id) {
         directorRepository.deleteById(id);
     }
+
+//    // DirectorDTO (get Teachers)
+//    @Override
+//    public DirectorDTO getTeachersByDirectorIdFrom5Grade(Long id) {
+//        DirectorDTO directorDTO = new DirectorDTO();
+//        Set<Teacher> teacherSetForCurrentDirector = getDirectorById(id).getTeacherSet();
+//        Set<Teacher> teacherSetFor5Grade = new HashSet<>();
+//
+//        for (Teacher teacher : teacherSetForCurrentDirector) {
+//            Grade grade = teacher.getGrade();
+//            if (!grade.equals(Grade.ONE) && !grade.equals(Grade.TWO) && !grade.equals(Grade.THREE) && !grade.equals(Grade.FOUR)) {
+//                teacherSetFor5Grade.add(teacher);
+//            }
+//            directorDTO.setTeacherSet(teacherSetFor5Grade);
+//        }
+//        return directorDTO;
+//    }
 }
