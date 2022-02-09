@@ -41,8 +41,10 @@ public class EmployeeRestController {
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(
             @ApiParam(value = "Идентификатор школы, список работников которой нужно вернуть", required = true)
             @PathVariable Long id) throws PersonNotFoundException {
+
         School school = schoolService.getById(id);
         List<EmployeeDto> employeeDto = employeeService.findAllTeachersBySchool(school);
+
         if (school == null) {
             throw new PersonNotFoundException(PERSON, id);
         }

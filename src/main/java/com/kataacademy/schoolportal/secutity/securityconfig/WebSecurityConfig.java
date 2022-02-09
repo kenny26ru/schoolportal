@@ -54,32 +54,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests()
-                .antMatchers("/login", "/login**", "/login/**", "/VAADIN/**", "/HEARTBEAT/**",
-                        "/UIDL/**", "/resources/**", "/", "/logout", "/manifest.json", "/icons/**",
-                        "/images/**", "/registration", "/registration/**", "/grid",
-                        "/school-project/home", "/ws/**", "/vaadinServlet/**", "/signin", "/signup").permitAll()
-                .antMatchers("/school-project/director/**").hasAuthority(ERole.ROLE_DIRECTOR.name())
-                .antMatchers("/school-project/head-teacher/**").hasAuthority(String.valueOf(ERole.ROLE_HEAD_TEACHER))
-                .antMatchers("/school-project/teacher/**").hasAuthority(String.valueOf(ERole.ROLE_TEACHER))
-                .antMatchers("/school-project/pupil/**").hasAuthority(String.valueOf(ERole.ROLE_PUPIL))
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").successHandler(authSuccessHandler).permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/login").permitAll();
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-/** Если нужно отключить Security - раскомментировать метод ниже (метод выше - наоборот, закомментировать) */
 //    @Override
-//    protected void configure(HttpSecurity security) throws Exception {
-//        security.httpBasic().disable();
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.cors().and().csrf().disable()
+//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.authorizeRequests()
+//                .antMatchers("/login", "/login**", "/login/**", "/VAADIN/**", "/HEARTBEAT/**",
+//                        "/UIDL/**", "/resources/**", "/", "/logout", "/manifest.json", "/icons/**",
+//                        "/images/**", "/registration", "/registration/**", "/grid",
+//                        "/school-project/home", "/ws/**", "/vaadinServlet/**", "/signin", "/signup").permitAll()
+//                .antMatchers("/school-project/director/**").hasAuthority(ERole.ROLE_DIRECTOR.name())
+//                .antMatchers("/school-project/head-teacher/**").hasAuthority(String.valueOf(ERole.ROLE_HEAD_TEACHER))
+//                .antMatchers("/school-project/teacher/**").hasAuthority(String.valueOf(ERole.ROLE_TEACHER))
+//                .antMatchers("/school-project/pupil/**").hasAuthority(String.valueOf(ERole.ROLE_PUPIL))
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login").successHandler(authSuccessHandler).permitAll()
+//                .and()
+//                .logout().logoutSuccessUrl("/login").permitAll();
+//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 //    }
+
+// Метод для временного отключения Security
+    @Override
+    protected void configure(HttpSecurity security) throws Exception {
+        security.httpBasic().disable();
+    }
 }
 

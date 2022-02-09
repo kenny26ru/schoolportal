@@ -22,12 +22,4 @@ public class EmployeeService {
                 .map(EmployeeMappingUtils::mapToEmployeeDto)
                 .collect(Collectors.toList());
     }
-
-//    //для одиночного продукта обошлись проще
-//    public EmployeeDto findById(Integer id) {
-//        return mappingUtils.mapToProductDto( //в метод mapToProductDto
-//                productRepository.findById(id) //поместили результат поиска по id
-//                        .orElse(new ProductEntity()) //если ни чего не нашли, то вернем пустой entity
-//        );
-//    }
 }
