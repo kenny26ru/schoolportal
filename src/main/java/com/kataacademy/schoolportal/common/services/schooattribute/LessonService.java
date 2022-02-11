@@ -25,6 +25,10 @@ public interface LessonService {
 
     List<Lesson> getLessonsByTeacherAndDate(Teacher teacher, LocalDate date);
 
+    List<Lesson> getLessonsByTeacherAndDateIsBetween(Teacher teacher, LocalDate monday, LocalDate sunday);
+
+    List<Lesson> getLessonsByTeacherAndDateBetween(Teacher teacher, LocalDate monday, LocalDate sunday);
+
     List<Lesson> getLessonsByTimeStart(LocalTime timeStart);
 
     List<Lesson> getLessonsByTimeEnd(LocalTime timeEnd);

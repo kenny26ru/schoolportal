@@ -68,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/school-project/head-teacher/**").hasAuthority(String.valueOf(ERole.ROLE_HEAD_TEACHER))
                 .antMatchers("/school-project/teacher/**").hasAuthority(String.valueOf(ERole.ROLE_TEACHER))
                 .antMatchers("/school-project/pupil/**").hasAuthority(String.valueOf(ERole.ROLE_PUPIL))
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").successHandler(authSuccessHandler).permitAll()

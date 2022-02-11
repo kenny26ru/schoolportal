@@ -40,7 +40,7 @@ public class Lesson {
     private Integer numberClassroom;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     public Lesson(SchoolSubjects subjectName, LocalDate dateLesson, LocalTime timeStart, LocalTime timeEnd, Integer numberClassroom) {

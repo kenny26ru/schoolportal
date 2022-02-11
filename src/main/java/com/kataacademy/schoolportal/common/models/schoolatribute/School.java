@@ -25,7 +25,8 @@ public class School {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "school")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "form_id")
     private Set<Form> forms;
 
     public School() {
